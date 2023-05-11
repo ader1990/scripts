@@ -22,11 +22,6 @@ RDEPEND="
 	>=app-shells/bash-5.2_p15-r2
 "
 
-# sys-apps/systemd - for systemd-tmpfiles
-BDEPEND="
-	sys-apps/systemd
-"
-
 declare -A CORE_BASH_SYMLINKS
 CORE_BASH_SYMLINKS=(
     ['.bash_logout']='../../usr/share/flatcar/etc/skel/.bash_logout'
