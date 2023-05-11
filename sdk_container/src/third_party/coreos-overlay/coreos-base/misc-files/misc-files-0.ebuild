@@ -55,6 +55,7 @@ src_install() {
     doins "${FILESDIR}/99-flatcar-bcc"
 
     dotmpfiles "${FILESDIR}/home-core-bash-symlinks.conf"
+    mkdir -p "${D}"/home/core
     systemd-tmpfiles --root="${D}" --create
 
     local link target
