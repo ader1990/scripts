@@ -27,8 +27,24 @@ BDEPEND="
 	sys-apps/systemd
 "
 
+declare -A CORE_BASH_LINKS
+CORE_BASH_LINKS=(
+    ['.bash_logout']='../../usr/share/flatcar/etc/skel/.bash_logout'
+    ['.bash_profile']='../../usr/share/flatcar/etc/skel/.bash_profile'
+    ['.bashrc']='../../usr/share/flatcar/etc/skel/.bashrc'
+)
+
 src_compile() {
     touch "${T}/empty-file"
+    local name config config_tmp target
+    config="${T}/home-core-bash-symlinks.conf"
+    config_tmp="${config}.tmp"
+    truncate --size 0 "${config_tmp}"
+    for name in "${!CORE_BASH_SYMLINKS[@]}"; do
+        target=${CORE_BASH_SYMLINKS["${name}"]}
+        echo "L /home/core/${name}   -   core    core    -   ${target}" >>"${config_tmp}"
+    done
+    LC_ALL=C sort "${config_tmp}" >"${config}"
 }
 
 src_install() {
@@ -54,11 +70,19 @@ src_install() {
     insinto '/etc/bash/bashrc.d'
     doins "${FILESDIR}/99-flatcar-bcc"
 
-    dotmpfiles "${FILESDIR}/home-core-bash-symlinks.conf"
-    mkdir -p "${D}"/home/core
-    systemd-tmpfiles --root="${D}" --create
+    dotmpfiles "${T}/home-core-bash-symlinks.conf"
+    # Ideally we would be calling systemd-tmpfiles to create the
+    # symlinks, but at this point systemd may not have any info about
+    # the core user. Thus we hardcode the id 500.
+    dodir /home/core
+    local name target link
+    for name in "${!CORE_BASH_SYMLINKS[@]}"; do
+        target=${CORE_BASH_SYMLINKS["${name}"]}
+        link="/home/core/${name}"
+        dosym "${target}" "${link}"
+        fowners --no-dereference 500:500 "${link}"
+    done
 
-    local link target
     for link in "${!compat_symlinks[@]}"; do
         target=${compat_symlinks["${link}"]}
         dosym -r "${target}" "${link}"
