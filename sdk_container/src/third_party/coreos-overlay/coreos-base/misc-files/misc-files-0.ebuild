@@ -27,8 +27,8 @@ BDEPEND="
 	sys-apps/systemd
 "
 
-declare -A CORE_BASH_LINKS
-CORE_BASH_LINKS=(
+declare -A CORE_BASH_SYMLINKS
+CORE_BASH_SYMLINKS=(
     ['.bash_logout']='../../usr/share/flatcar/etc/skel/.bash_logout'
     ['.bash_profile']='../../usr/share/flatcar/etc/skel/.bash_profile'
     ['.bashrc']='../../usr/share/flatcar/etc/skel/.bashrc'
@@ -42,7 +42,7 @@ src_compile() {
     truncate --size 0 "${config_tmp}"
     for name in "${!CORE_BASH_SYMLINKS[@]}"; do
         target=${CORE_BASH_SYMLINKS["${name}"]}
-        echo "L /home/core/${name}   -   core    core    -   ${target}" >>"${config_tmp}"
+        echo "L /home/core/${name} - core core - ${target}" >>"${config_tmp}"
     done
     LC_ALL=C sort "${config_tmp}" >"${config}"
 }
@@ -75,6 +75,7 @@ src_install() {
     # symlinks, but at this point systemd may not have any info about
     # the core user. Thus we hardcode the id 500.
     dodir /home/core
+    fowners 500:500 /home/core
     local name target link
     for name in "${!CORE_BASH_SYMLINKS[@]}"; do
         target=${CORE_BASH_SYMLINKS["${name}"]}
