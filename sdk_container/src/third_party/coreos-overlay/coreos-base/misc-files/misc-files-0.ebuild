@@ -3,6 +3,9 @@
 
 EAPI=8
 
+TMPFILES_OPTIONAL=1
+inherit tmpfiles
+
 DESCRIPTION='Flatcar miscellaneous files'
 HOMEPAGE='https://www.flatcar.org/'
 
@@ -17,6 +20,11 @@ S="${WORKDIR}"
 # modifications in their ebuilds.
 RDEPEND="
 	>=app-shells/bash-5.2_p15-r2
+"
+
+# sys-apps/systemd - for systemd-tmpfiles
+BDEPEND="
+	sys-apps/systemd
 "
 
 src_compile() {
