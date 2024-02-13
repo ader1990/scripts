@@ -30,7 +30,7 @@ else
 fi
 
 inherit bash-completion-r1 linux-info meson-multilib optfeature pam python-single-r1
-inherit secureboot systemd toolchain-funcs udev
+inherit secureboot systemd toolchain-funcs udev tmpfiles
 
 DESCRIPTION="System and service manager for Linux"
 HOMEPAGE="http://systemd.io/"
@@ -135,7 +135,6 @@ RDEPEND="${COMMON_DEPEND}
 	)
 	selinux? (
 		sec-policy/selinux-base-policy[systemd]
-		sec-policy/selinux-ntp
 	)
 	sysv-utils? (
 		!sys-apps/openrc[sysv-utils(-)]
@@ -151,7 +150,6 @@ RDEPEND="${COMMON_DEPEND}
 
 # sys-apps/dbus: the daemon only (+ build-time lib dep for tests)
 PDEPEND=">=sys-apps/dbus-1.9.8[systemd]
-	>=sys-fs/udev-init-scripts-34
 	policykit? ( sys-auth/polkit )
 	!vanilla? ( sys-apps/gentoo-systemd-integration )"
 
@@ -184,11 +182,6 @@ QA_FLAGS_IGNORED="usr/lib/systemd/boot/efi/.*"
 QA_EXECSTACK="usr/lib/systemd/boot/efi/*"
 
 pkg_pretend() {
-	if use split-usr; then
-		eerror "Please complete the migration to merged-usr."
-		eerror "https://wiki.gentoo.org/wiki/Merge-usr"
-		die "systemd no longer supports split-usr"
-	fi
 	if [[ ${MERGE_TYPE} != buildonly ]]; then
 		if use test && has pid-sandbox ${FEATURES}; then
 			ewarn "Tests are known to fail with PID sandboxing enabled."
@@ -278,7 +271,7 @@ multilib_src_configure() {
 		-Dpamlibdir="$(getpam_mod_dir)"
 		# avoid bash-completion dep
 		-Dbashcompletiondir="$(get_bashcompdir)"
-		-Dsplit-bin=false
+		-Dsplit-bin=true
 		# Disable compatibility with sysvinit
 		-Dsysvinit-path=
 		-Dsysvrcnd-path=
@@ -398,10 +391,6 @@ multilib_src_install_all() {
 	keepdir /usr/lib/systemd/user-generators
 	keepdir /var/lib/systemd
 	keepdir /var/log/journal
-
-	if use pam; then
-		newpamd "${FILESDIR}"/systemd-user.pam systemd-user
-	fi
 
 	if use kernel-install; then
 		# Dummy config, remove to make room for sys-kernel/installkernel
