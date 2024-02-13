@@ -360,7 +360,6 @@ multilib_src_install_all() {
 	mv "${ED}"/usr/share/doc/{systemd,${PF}} || die
 
 	einstalldocs
-	dodoc "${FILESDIR}"/nsswitch.conf
 
 	insinto /usr/lib/tmpfiles.d
 	doins "${FILESDIR}"/legacy.conf
