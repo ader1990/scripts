@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-CROS_WORKON_PROJECT="flatcar/baselayout"
+CROS_WORKON_PROJECT="ader1990/baselayout"
 CROS_WORKON_LOCALNAME="baselayout"
 CROS_WORKON_REPO="https://github.com"
 
 if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
-	CROS_WORKON_COMMIT="937a45faef0f7fa88d3d2c3f7ba60a7f3e2e82f7" # flatcar-master
+	CROS_WORKON_COMMIT="c8e12571c14bbeae14fc5536f5097e6f6cfd4f68" # flatcar-master
 	KEYWORDS="amd64 arm arm64 x86"
 fi
 
