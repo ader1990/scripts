@@ -423,6 +423,7 @@ multilib_src_configure() {
 		# Flatcar: Unported options, still needed?
 		-Dquotaon-path=/usr/sbin/quotaon
 		-Dquotacheck-path=/usr/sbin/quotacheck
+		-Ddefault-mdns=no
 	)
 
 	meson_src_configure "${myconf[@]}"
