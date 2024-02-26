@@ -122,6 +122,7 @@ RDEPEND="${RDEPEND}
 	dev-libs/libsodium
 	dev-libs/openssl
 	dev-libs/softhsm
+	dev-libs/opensc
 	dev-util/bpftool
 	dev-util/bsdiff
 	dev-vcs/git
