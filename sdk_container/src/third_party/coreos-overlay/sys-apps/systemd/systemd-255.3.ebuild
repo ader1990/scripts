@@ -39,7 +39,7 @@ SLOT="0/2"
 IUSE="
 	acl apparmor audit boot cgroup-hybrid cryptsetup curl +dns-over-tls elfutils
 	fido2 +gcrypt gnutls homed http idn importd iptables +kernel-install +kmod
-	+lz4 lzma +openssl pam pcre pkcs11 policykit pwquality qrcode
+	+lz4 lzma +openssl pam pcre +pkcs11 policykit pwquality qrcode
 	+resolvconf +seccomp selinux split-usr +sysv-utils test tpm ukify vanilla xkb +zstd
 "
 REQUIRED_USE="
