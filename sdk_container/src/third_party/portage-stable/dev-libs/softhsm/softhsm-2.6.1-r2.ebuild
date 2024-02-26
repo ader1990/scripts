@@ -32,7 +32,6 @@ src_configure() {
 	econf \
 		--disable-static \
 		--with-crypto-backend=openssl \
-		--disable-p11-kit \
 		--localstatedir="${EPREFIX}/var" \
 		--enable-ecc \
 		$(use_enable gost) \
