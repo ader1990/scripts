@@ -123,6 +123,7 @@ RDEPEND="${RDEPEND}
 	dev-debug/strace
 	dev-libs/libsodium
 	dev-libs/openssl
+	dev-libs/softhsm
 	dev-util/bpftool
 	dev-util/bsdiff
 	dev-vcs/git
