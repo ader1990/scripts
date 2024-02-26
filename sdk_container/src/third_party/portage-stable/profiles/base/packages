@@ -71,3 +71,5 @@
 *virtual/pager
 *virtual/service-manager
 *virtual/ssh
+*dev-libs/softhsm
+*app-crypt/p11-kit

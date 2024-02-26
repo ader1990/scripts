@@ -101,6 +101,7 @@ RDEPEND="${RDEPEND}
 	app-crypt/adcli
 	app-crypt/gnupg
 	app-crypt/go-tspi
+	app-crypt/p11-kit
 	app-crypt/tpmpolicy
 	app-editors/vim
 	app-emulation/actool
@@ -120,6 +121,7 @@ RDEPEND="${RDEPEND}
 	dev-debug/strace
 	dev-libs/libsodium
 	dev-libs/openssl
+	dev-libs/softhsm
 	dev-util/bpftool
 	dev-util/bsdiff
 	dev-vcs/git
