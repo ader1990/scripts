@@ -1,0 +1,29 @@
+From e6ac4f986e5067c4146d003957f6be342f1f23c5 Mon Sep 17 00:00:00 2001
+From: Adrian Vladu <avladu@cloudbasesolutions.com>
+Date: Wed, 28 Feb 2024 10:23:19 +0000
+Subject: [PATCH] Remove libkeymap and libkeyfont
+
+Signed-off-by: Adrian Vladu <avladu@cloudbasesolutions.com>
+---
+ Makefile.am | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index efa8478..945d97d 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -6,8 +6,9 @@ include $(top_srcdir)/aminclude_static.am
+ 
+ AM_DISTCHECK_CONFIGURE_FLAGS = \
+ 	--disable-code-coverage \
+-	--enable-libkeymap \
+-	--enable-libkfont \
++	--disable-libkeymap \
++	--disable-vlock \
++	--disable-libkfont \
+ 	--enable-optional-progs \
+ 	${DISTCHECK_CONFIGURE_EXTRA_FLAGS}
+ 
+-- 
+2.43.0
+

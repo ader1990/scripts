@@ -25,6 +25,10 @@ SLOT="0"
 IUSE="nls selinux pam test"
 RESTRICT="!test? ( test )"
 
+# Note(ader1990): mask unneeded kbd binaries/files to make initrd smaller
+#PKG_INSTALL_MASK="/usr/share/keymaps /usr/share/unimaps /usr/share/consolefonts"
+INSTALL_MASK="/usr/share/keymaps /usr/share/unimaps /usr/share/consolefonts"
+
 # Testsuite's Makefile.am calls missing(!)
 # ... but this seems to be consistent with the autoconf docs?
 # Needs more investigation: https://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/autom4te-Invocation.html
@@ -47,8 +51,10 @@ BDEPEND="
 "
 
 src_prepare() {
-	default
-
+	local PATCHES=(
+		# Flatcar: Adding our own patches here.
+		"${FILESDIR}/0001-Remove-libkeymap-and-libkeyfont.patch"
+	)
 	# Rename conflicting keymaps to have unique names, bug #293228
 	# See also https://github.com/legionus/kbd/issues/76.
 	pushd "${S}"/data/keymaps/i386 &> /dev/null || die
@@ -61,6 +67,7 @@ src_prepare() {
 	if [[ ${PV} == 9999 ]] || [[ $(ver_cut 3) -ge 90 ]] ; then
 		eautoreconf
 	fi
+	default
 }
 
 src_configure() {
