@@ -66,6 +66,7 @@ INSTALL_MASK="${INSTALL_MASK}
 INSTALL_MASK="${INSTALL_MASK}
   /usr/share/keymaps
   -/usr/share/keymaps/i386/qwerty/us.map.gz
+  -/usr/share/keymaps/i386/include
   /usr/share/consolefonts
   /usr/share/unimaps
 "
