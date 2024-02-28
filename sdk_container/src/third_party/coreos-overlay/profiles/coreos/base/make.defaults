@@ -102,6 +102,12 @@ INSTALL_MASK="
 
 # Prevent binaries from being installed to rootfs from binary packages
 PKG_INSTALL_MASK="
+  /usr/share/keymaps
+  -/usr/share/keymaps/include
+  -/usr/share/keymaps/i386/include
+  -/usr/share/keymaps/i386/qwerty/us.map.gz
+  /usr/share/consolefonts
+  /usr/share/unimaps
 "
 
 # Keep the default languages small.
