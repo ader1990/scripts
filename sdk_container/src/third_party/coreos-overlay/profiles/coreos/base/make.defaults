@@ -107,7 +107,9 @@ PKG_INSTALL_MASK="
   -/usr/share/keymaps/i386/include
   -/usr/share/keymaps/i386/qwerty/us.map.gz
   /usr/share/consolefonts
+  -/usr/share/consolefonts/Uni1-Fixed15.psf.gz
   /usr/share/unimaps
+  -/usr/share/unimaps/iso01.uni
 "
 
 # Keep the default languages small.
