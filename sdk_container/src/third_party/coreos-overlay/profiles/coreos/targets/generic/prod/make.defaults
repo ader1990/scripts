@@ -61,3 +61,10 @@ INSTALL_MASK="${INSTALL_MASK}
   /sbin/ebtables-save
   /sbin/xfs_scrub_all
 "
+
+# remove unnecessary files from the sys-apps/kbd module.
+INSTALL_MASK="${INSTALL_MASK}
+  /usr/share/keymaps
+  /usr/share/consolefonts
+  /usr/share/unimaps
+"
