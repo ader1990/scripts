@@ -87,6 +87,15 @@ INSTALL_MASK="${INSTALL_MASK}
   /usr/share/ss
 "
 
+INSTALL_MASK="${INSTALL_MASK}
+  /usr/share/keymaps
+  -/usr/share/keymaps/include
+  -/usr/share/keymaps/i386/include
+  -/usr/share/keymaps/i386/qwerty/us.map.gz
+  /usr/share/consolefonts
+  /usr/share/unimaps
+"
+
 # Override UIDs and GIDs where ours differ from Gentoo defaults.
 ACCT_GROUP_DIALOUT_ID=249
 ACCT_GROUP_DOCKER_ID=233
