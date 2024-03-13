@@ -122,6 +122,7 @@ RDEPEND="${RDEPEND}
 	dev-db/etcdctl
 	dev-debug/strace
 	dev-libs/libsodium
+	dev-libs/opencryptoki
 	dev-libs/openssl
 	dev-libs/softhsm
 	dev-libs/opensc

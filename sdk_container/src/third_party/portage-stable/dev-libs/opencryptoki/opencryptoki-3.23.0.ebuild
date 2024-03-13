@@ -7,38 +7,32 @@ inherit autotools flag-o-matic
 
 DESCRIPTION="PKCS#11 provider cryptographic hardware"
 HOMEPAGE="https://sourceforge.net/projects/opencryptoki"
-SRC_URI="mirror://sourceforge/opencryptoki/${PV}/${P}.tgz"
-S="${WORKDIR}/${PN}"
+SRC_URI="https://github.com/opencryptoki/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+#SRC_URI="mirror://sourceforge/opencryptoki/${PV}/${P}.tgz"
+S="${WORKDIR}/${PN}-${PV}"
 
 # Upstream is looking into relicensing it into CPL-1.0 entirely; the CCA
 # token sources are under CPL-1.0 already.
 LICENSE="CPL-0.5"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~s390 ~x86"
-IUSE="debug +tpm"
+KEYWORDS="amd64 ~arm arm64 ~s390 ~x86"
+IUSE="+tpm"
 
 DEPEND="
 	tpm? ( app-crypt/trousers )
 	>=dev-libs/openssl-1.1.0:0=
+	sys-apps/systemd
 "
 RDEPEND="
 	${DEPEND}
-	acct-group/pkcs11
 "
 
-DOCS=(
-	README AUTHORS FAQ TODO
-	doc/openCryptoki-HOWTO.pdf
+PATCHES=(
+	"${FILESDIR}"/0001-fix-double-quotes-usage.patch
 )
-
-# tests right now basically don't exist; the only available thing would
-# test against an installed copy and would kill a running pcscd, all
-# things that we're not interested to.
-RESTRICT=test
 
 src_prepare() {
 	default
-	mv configure.in configure.ac || die
 	eautoreconf
 }
 
@@ -57,18 +51,10 @@ src_configure() {
 	# We don't use --enable-debug because that tinkers with the CFLAGS
 	# and we don't want that. Instead we append -DDEBUG which enables
 	# debug information.
-	use debug && append-flags -DDEBUG
 
 	econf \
-		--localstatedir=/var \
-		--enable-fast-install \
-		--disable-debug \
-		--enable-daemon \
-		--enable-library \
-		--disable-icatok \
-		--enable-swtok \
-		$(use_enable tpm tpmtok) \
-		--disable-ccatok
+		--enable-swtok --enable-icsftok --enable-ccatok --with-systemd \
+		--with-pkcs-group=root --with-pkcsslotd-user=root
 }
 
 src_install() {
@@ -95,7 +81,4 @@ src_install() {
 	use tpm || sed -i -e '/use tcsd/d' "${T}"/pkcsslotd.init
 	newinitd "${T}/pkcsslotd.init" pkcsslotd
 
-	# We create /var dirs at runtime as needed, so don't bother installing
-	# our own.
-	rm -r "${ED}"/var/{lib,lock} || die
 }
