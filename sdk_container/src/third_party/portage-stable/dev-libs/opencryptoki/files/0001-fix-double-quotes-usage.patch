@@ -1,0 +1,30 @@
+From ae2be9c83cb8ea03123c60d480bb192d2dd393ff Mon Sep 17 00:00:00 2001
+From: Adrian Vladu <avladu@cloudbasesolutions.com>
+Date: Fri, 15 Mar 2024 09:38:25 +0000
+Subject: [PATCH] fix double quotes usage
+
+Signed-off-by: Adrian Vladu <avladu@cloudbasesolutions.com>
+---
+ tools/policyexamplegen.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/policyexamplegen.c b/tools/policyexamplegen.c
+index 0844259d..2b787b54 100644
+--- a/tools/policyexamplegen.c
++++ b/tools/policyexamplegen.c
+@@ -21,10 +21,10 @@ int main(void)
+ 
+     puts("# OpenCryptoki policy example");
+     puts("# Move/copy to /etc/opencryptoki/policy.conf to use it with opencryptoki.");
+-    puts("# Then chown it to root:" PKCS_GROUP " and chmod it to 0640.");
++    puts("# Then chown it to root: PKCS_GROUP and chmod it to 0640.");
+     puts("# Also create a /etc/opencryptoki/strength.conf since this is a prerequisite");
+     puts("# for policies.  You could just copy the strength-example.conf from this");
+-    puts("# folder, chown it to root:" PKCS_GROUP " and chmod it to 0640.");
++    puts("# folder, chown it to root: PKCS_GROUP and chmod it to 0640.");
+     puts("");
+     puts("version policy-0");
+     puts("");
+-- 
+2.43.0
+
