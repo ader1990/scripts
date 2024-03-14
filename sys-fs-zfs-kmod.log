@@ -1,0 +1,278 @@
+[32m * [39;49;00mPackage:    sys-fs/zfs-kmod-2.2.2:0/2.2.2
+[32m * [39;49;00mRepository: portage-stable
+[32m * [39;49;00mMaintainer: sam@gentoo.org
+[32m * [39;49;00mUpstream:   https://github.com/openzfs/zfs/issues
+[32m * [39;49;00mUSE:        abi_x86_64 amd64 dist-kernel-cap elibc_glibc kernel_linux rootfs strip
+[32m * [39;49;00mFEATURES:   compressdebug preserve-libs sandbox splitdebug userpriv usersandbox
+ [32m*[0m Running stacked hooks for pre_pkg_setup
+ [32m*[0m    sysroot_build_bin_dir ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Determining the location of the kernel source code
+ [32m*[0m Found kernel source directory:
+ [32m*[0m     /build/amd64-usr/lib/modules/6.6.17-flatcar/build
+ [32m*[0m Found sources for kernel version:
+ [32m*[0m     6.6.17-flatcar
+ [32m*[0m Checking for suitable kernel configuration options ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Preparing x86_64-cros-linux-gnu toolchain for kernel modules (override with KERNEL_CHOST) ...
+ [32m*[0m Toolchain picked for kernel modules (override with KERNEL_CC, _LD, ...): '/usr/bin/x86_64-cros-linux-gnu-gcc-13' '/usr/bin/x86_64-cros-linux-gnu-g++-13' '/usr/bin/x86_64-cros-linux-gnu-ld.bfd' '/usr/bin/x86_64-cros-linux-gnu-gcc-ar' '/usr/bin/x86_64-cros-linux-gnu-gcc-nm' '/usr/bin/x86_64-cros-linux-gnu-objcopy' '/usr/bin/x86_64-cros-linux-gnu-objdump' '/usr/bin/x86_64-cros-linux-gnu-readelf' '/usr/bin/x86_64-cros-linux-gnu-strip'
+ [32m*[0m Running stacked hooks for pre_src_unpack
+ [32m*[0m    python_multilib_setup ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+>>> Unpacking source...
+>>> Unpacking zfs-2.2.2.tar.gz to /build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work
+>>> Source unpacked in /build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work
+>>> Preparing source in /build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work/zfs-2.2.2 ...
+ [32m*[0m Applying zfs-kmod-2.1.11-gentoo.patch ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Applying zfs-kmod-2.2.2-arm64-neon.patch ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Running eautoreconf in '/build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work/zfs-2.2.2' ...
+ [32m*[0m Running 'libtoolize --install --copy --force --automake' ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Running 'aclocal -I config --system-acdir=/build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/temp/aclocal' ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Running 'autoconf --force' ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Running 'autoheader' ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ [32m*[0m Running 'automake --add-missing --copy --foreign --force-missing' ...
+[A[169C [34;01m[ [32;01mok[34;01m ][0m
+ (B[m[1m[32m*(B[m Running elibtoolize in: zfs-2.2.2/
+ (B[m[1m[32m*(B[m Running elibtoolize in: zfs-2.2.2/config/
+ (B[m[1m[32m*(B[m   Applying portage/1.2.0 patch ...
+ (B[m[1m[32m*(B[m   Applying sed/1.5.6 patch ...
+ (B[m[1m[32m*(B[m   Applying cross/2.4.3 patch ...
+ (B[m[1m[32m*(B[m   Applying as-needed/2.4.3 patch ...
+ (B[m[1m[32m*(B[m   Applying color-record/2.4.7 patch ...
+>>> Source prepared.
+>>> Configuring source in /build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work/zfs-2.2.2 ...
+ * econf: updating zfs-2.2.2/config.sub with /usr/share/gnuconfig/config.sub
+ * econf: updating zfs-2.2.2/config/config.sub with /usr/share/gnuconfig/config.sub
+ * econf: updating zfs-2.2.2/config/config.guess with /usr/share/gnuconfig/config.guess
+ * econf: updating zfs-2.2.2/config.guess with /usr/share/gnuconfig/config.guess
+./configure --prefix=/usr --build=x86_64-pc-linux-gnu --host=x86_64-cros-linux-gnu --mandir=/usr/share/man --infodir=/usr/share/info --datadir=/usr/share --sysconfdir=/etc --localstatedir=/var/lib --datarootdir=/usr/share --disable-dependency-tracking --disable-silent-rules --disable-static --docdir=/usr/share/doc/zfs-kmod-2.2.2 --htmldir=/usr/share/doc/zfs-kmod-2.2.2/html --with-sysroot=/build/amd64-usr --libdir=/usr/lib64 --bindir=/bin --sbindir=/sbin --with-config=kernel --with-linux=/build/amd64-usr/lib/modules/6.6.17-flatcar/build --with-linux-obj=/build/amd64-usr/lib/modules/6.6.17-flatcar/build --disable-debug GENTOO_MAKEARGS_EVAL='ARCH=x86' 'V=1' 'KBUILD_VERBOSE=1' 'CONFIG_WERROR=' 'CONFIG_MODULE_SIG_ALL=' 'CONFIG_MODULE_COMPRESS_GZIP=' 'CONFIG_MODULE_COMPRESS_XZ=' 'CONFIG_MODULE_COMPRESS_ZSTD=' 'DEPMOD=true' 'STRIP=true' 'CROSS_COMPILE=x86_64-cros-linux-gnu-' 'HOSTCC=x86_64-pc-linux-gnu-gcc' 'HOSTCXX=x86_64-pc-linux-gnu-g++' 'HOSTCFLAGS=-O1 -pipe' 'HOSTCXXFLAGS=-O1 -pipe' 'HOSTLDFLAGS= ' 'HOSTPKG_CONFIG=x86_64-pc-linux-gnu-pkg-config' 'CC=/usr/bin/x86_64-cros-linux-gnu-gcc-13' 'CXX=/usr/bin/x86_64-cros-linux-gnu-g++-13' 'LD=/usr/bin/x86_64-cros-linux-gnu-ld.bfd' 'AR=/usr/bin/x86_64-cros-linux-gnu-gcc-ar' 'NM=/usr/bin/x86_64-cros-linux-gnu-gcc-nm' 'OBJCOPY=/usr/bin/x86_64-cros-linux-gnu-objcopy' 'OBJDUMP=/usr/bin/x86_64-cros-linux-gnu-objdump' 'READELF=/usr/bin/x86_64-cros-linux-gnu-readelf' TEST_JOBS=8
+configure: loading site script /usr/share/config.site
+configure: loading site script /usr/share/config.site.d/80crossdev.conf
+configure: loading site script /usr/share/crossdev/include/site/linux
+configure: loading site script /usr/share/crossdev/include/site/linux-gnu
+configure: loading site script /usr/share/crossdev/include/site/x86_64-linux-gnu
+checking for gawk... gawk
+checking metadata... META file
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-cros-linux-gnu
+checking target system type... x86_64-cros-linux-gnu
+checking whether to enable maintainer-specific portions of Makefiles... no
+checking whether make supports nested variables... yes
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for x86_64-cros-linux-gnu-strip... x86_64-cros-linux-gnu-strip
+checking for a race-free mkdir -p... /bin/mkdir -p
+checking whether make sets $(MAKE)... yes
+checking how to print strings... printf
+checking whether make supports the include directive... yes (GNU style)
+checking for x86_64-cros-linux-gnu-gcc... x86_64-cros-linux-gnu-gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether x86_64-cros-linux-gnu-gcc accepts -g... yes
+checking for x86_64-cros-linux-gnu-gcc option to enable C11 features... none needed
+checking whether x86_64-cros-linux-gnu-gcc understands -c and -o together... yes
+checking dependency style of x86_64-cros-linux-gnu-gcc... none
+checking for a sed that does not truncate output... /bin/sed
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for fgrep... /bin/grep -F
+checking for ld used by x86_64-cros-linux-gnu-gcc... /usr/libexec/gcc/x86_64-cros-linux-gnu/ld
+checking if the linker (/usr/libexec/gcc/x86_64-cros-linux-gnu/ld) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... /usr/bin/x86_64-cros-linux-gnu-nm -B
+checking the name lister (/usr/bin/x86_64-cros-linux-gnu-nm -B) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-cros-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for /usr/libexec/gcc/x86_64-cros-linux-gnu/ld option to reload object files... -r
+checking for x86_64-cros-linux-gnu-file... no
+checking for file... file
+configure: WARNING: using cross tools not prefixed with host triplet
+checking for x86_64-cros-linux-gnu-objdump... x86_64-cros-linux-gnu-objdump
+checking how to recognize dependent libraries... pass_all
+checking for x86_64-cros-linux-gnu-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for x86_64-cros-linux-gnu-ar... x86_64-cros-linux-gnu-ar
+checking for archiver @FILE support... @
+checking for x86_64-cros-linux-gnu-strip... (cached) x86_64-cros-linux-gnu-strip
+checking for x86_64-cros-linux-gnu-ranlib... x86_64-cros-linux-gnu-ranlib
+checking command to parse /usr/bin/x86_64-cros-linux-gnu-nm -B output from x86_64-cros-linux-gnu-gcc object... ok
+checking for sysroot... /build/amd64-usr
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for x86_64-cros-linux-gnu-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if x86_64-cros-linux-gnu-gcc supports -fno-rtti -fno-exceptions... no
+checking for x86_64-cros-linux-gnu-gcc option to produce PIC... -fPIC -DPIC
+checking if x86_64-cros-linux-gnu-gcc PIC flag -fPIC -DPIC works... yes
+checking if x86_64-cros-linux-gnu-gcc static flag -static works... yes
+checking if x86_64-cros-linux-gnu-gcc supports -c -o file.o... yes
+checking if x86_64-cros-linux-gnu-gcc supports -c -o file.o... (cached) yes
+checking whether the x86_64-cros-linux-gnu-gcc linker (/usr/libexec/gcc/x86_64-cros-linux-gnu/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking for x86_64-cros-linux-gnu-gcc... (cached) x86_64-cros-linux-gnu-gcc
+checking whether the compiler supports GNU C... (cached) yes
+checking whether x86_64-cros-linux-gnu-gcc accepts -g... (cached) yes
+checking for x86_64-cros-linux-gnu-gcc option to enable C11 features... (cached) none needed
+checking whether x86_64-cros-linux-gnu-gcc understands -c and -o together... (cached) yes
+checking dependency style of x86_64-cros-linux-gnu-gcc... (cached) none
+checking whether ln -s works... yes
+checking for x86_64-cros-linux-gnu-pkg-config... /usr/bin/x86_64-cros-linux-gnu-pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking dependency style of x86_64-cros-linux-gnu-gcc... none
+checking whether to build with code coverage support... no
+checking how to create a pax tar archive... gnutar
+checking zfs author... OpenZFS
+checking zfs license... CDDL
+checking whether NLS is requested... yes
+checking for msgfmt... /usr/bin/msgfmt
+checking for gmsgfmt... /usr/bin/gmsgfmt
+checking for xgettext... /usr/bin/xgettext
+checking for msgmerge... /usr/bin/msgmerge
+checking for ld... /usr/libexec/gcc/x86_64-cros-linux-gnu/ld -m elf_x86_64
+checking if the linker (/usr/libexec/gcc/x86_64-cros-linux-gnu/ld -m elf_x86_64) is GNU ld... yes
+checking for shared library run path origin... done
+checking 32-bit host C ABI... no
+checking for the common suffixes of directories in the library search path... lib64,lib64
+checking zfs config... kernel
+checking the number of available CPUs... 8
+checking whether x86_64-cros-linux-gnu-gcc supports -Wno-clobbered... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -Winfinite-recursion... yes
+checking whether  supports -Winfinite-recursion... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -Wimplicit-fallthrough... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -Wframe-larger-than=<size>... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -Wno-format-truncation... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -Wno-format-zero-length... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -Wformat-overflow... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -fno-omit-frame-pointer... yes
+checking whether x86_64-cros-linux-gnu-gcc supports -fno-ipa-sra... yes
+checking whether  supports -fno-ipa-sra... yes
+checking whether to build with -fsanitize=address support... no
+checking whether to build with -fsanitize=undefined support... no
+checking whether host toolchain supports SSE... yes
+checking whether host toolchain supports SSE2... yes
+checking whether host toolchain supports SSE3... yes
+checking whether host toolchain supports SSSE3... yes
+checking whether host toolchain supports SSE4.1... yes
+checking whether host toolchain supports SSE4.2... yes
+checking whether host toolchain supports AVX... yes
+checking whether host toolchain supports AVX2... yes
+checking whether host toolchain supports AVX512F... yes
+checking whether host toolchain supports AVX512CD... yes
+checking whether host toolchain supports AVX512DQ... yes
+checking whether host toolchain supports AVX512BW... yes
+checking whether host toolchain supports AVX512IFMA... yes
+checking whether host toolchain supports AVX512VBMI... yes
+checking whether host toolchain supports AVX512PF... yes
+checking whether host toolchain supports AVX512ER... yes
+checking whether host toolchain supports AVX512VL... yes
+checking whether host toolchain supports AES... yes
+checking whether host toolchain supports PCLMULQDQ... yes
+checking whether host toolchain supports MOVBE... yes
+checking whether host toolchain supports XSAVE... yes
+checking whether host toolchain supports XSAVEOPT... yes
+checking whether host toolchain supports XSAVES... yes
+checking for system type (linux-gnu)... Linux
+checking for python3... python3
+checking for python version... (cached) 3.11
+checking for python platform... linux
+checking for GNU default python prefix... ${prefix}
+checking for GNU default python exec_prefix... ${exec_prefix}
+checking for python script directory (pythondir)... (cached) ${libdir}/python3.11/site-packages
+checking for python extension module directory (pyexecdir)... (cached) ${libdir}/python3.11/site-packages
+configure: Disabling pyzfs for kernel/srpm config
+checking whether to enable pyzfs: ... no
+checking for sed --in-place... --in-place
+checking for cppcheck... no
+checking for shellcheck... no
+checking for checkbashisms... yes
+checking for parallel... no
+checking kernel source and build directories... done
+checking kernel source directory... /build/amd64-usr/lib/modules/6.6.17-flatcar/build
+checking kernel build directory... /build/amd64-usr/lib/modules/6.6.17-flatcar/build
+checking kernel source version... 6.6.17-flatcar
+checking for kernel config option compatibility... done
+checking whether CONFIG_MODULES is defined... yes
+checking whether CONFIG_BLOCK is defined... yes
+checking whether mutex_lock() is GPL-only... no
+checking whether CONFIG_TRIM_UNUSED_KSYM is disabled... yes
+checking whether CONFIG_ZLIB_DEFLATE is defined... yes
+checking whether CONFIG_ZLIB_INFLATE is defined... yes
+checking kernel file name for module symbols... NONE
+checking whether fpu headers are available... asm/fpu/api.h
+checking whether objtool header is available... linux/objtool.h
+checking whether wait_queue_entry_t exists... yes
+checking whether /dev/zfs minor is available... grep: /build/amd64-usr/lib/modules/6.6.17-flatcar/build/include/linux/miscdevice.h: No such file or directory
+249
+checking whether DECLARE_EVENT_CLASS() is available... no
+checking for available kernel interfaces... done
+checking whether access_ok() has 'type' parameter... no
+checking whether global_node_page_state() exists... yes
+checking whether global_zone_page_state() exists... yes
+checking whether enum node_stat_item contains NR_FILE_PAGES... no
+checking whether enum node_stat_item contains NR_INACTIVE_ANON... no
+checking whether enum node_stat_item contains NR_INACTIVE_FILE... no
+checking whether enum zone_stat_item contains NR_FILE_PAGES... no
+checking whether enum zone_stat_item contains NR_INACTIVE_ANON... no
+checking whether enum zone_stat_item contains NR_INACTIVE_FILE... no
+checking whether global_page_state enums are sane... no
+NR_FILE_PAGES in either node_stat_item or zone_stat_item: NOT FOUND
+configure: error: 
+	*** None of the expected "global page state" interfaces were detected.
+	*** This may be because your kernel version is newer than what is
+	*** supported, or you are using a patched custom kernel with
+	*** incompatible modifications.
+	***
+	*** ZFS Version: zfs-2.2.2-r0-gentoo
+	*** Compatible Kernels: 3.10 - 6.6
+	
+
+!!! Please attach the following file when seeking support:
+!!! /build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work/zfs-2.2.2/config.log
+ [31;01m*[0m ERROR: sys-fs/zfs-kmod-2.2.2::portage-stable failed (configure phase):
+ [31;01m*[0m   econf failed
+ [31;01m*[0m 
+ [31;01m*[0m Call stack:
+ [31;01m*[0m               ebuild.sh, line  136:  Called src_configure
+ [31;01m*[0m             environment, line 3855:  Called econf '--bindir=/bin' '--sbindir=/sbin' '--with-config=kernel' '--with-linux=/build/amd64-usr/lib/modules/6.6.17-flatcar/build' '--with-linux-obj=/build/amd64-usr/lib/modules/6.6.17-flatcar/build' '--disable-debug' 'GENTOO_MAKEARGS_EVAL='ARCH=x86' 'V=1' 'KBUILD_VERBOSE=1' 'CONFIG_WERROR=' 'CONFIG_MODULE_SIG_ALL=' 'CONFIG_MODULE_COMPRESS_GZIP=' 'CONFIG_MODULE_COMPRESS_XZ=' 'CONFIG_MODULE_COMPRESS_ZSTD=' 'DEPMOD=true' 'STRIP=true' 'CROSS_COMPILE=x86_64-cros-linux-gnu-' 'HOSTCC=x86_64-pc-linux-gnu-gcc' 'HOSTCXX=x86_64-pc-linux-gnu-g++' 'HOSTCFLAGS=-O1 -pipe' 'HOSTCXXFLAGS=-O1 -pipe' 'HOSTLDFLAGS= ' 'HOSTPKG_CONFIG=x86_64-pc-linux-gnu-pkg-config' 'CC=/usr/bin/x86_64-cros-linux-gnu-gcc-13' 'CXX=/usr/bin/x86_64-cros-linux-gnu-g++-13' 'LD=/usr/bin/x86_64-cros-linux-gnu-ld.bfd' 'AR=/usr/bin/x86_64-cros-linux-gnu-gcc-ar' 'NM=/usr/bin/x86_64-cros-linux-gnu-gcc-nm' 'OBJCOPY=/usr/bin/x86_64-cros-linux-gnu-objcopy' 'OBJDUMP=/usr/bin/x86_64-cros-linux-gnu-objdump' 'READELF=/usr/bin/x86_64-cros-linux-gnu-readelf'' 'TEST_JOBS=8'
+ [31;01m*[0m        phase-helpers.sh, line  732:  Called __helpers_die 'econf failed'
+ [31;01m*[0m   isolated-functions.sh, line  112:  Called die
+ [31;01m*[0m The specific snippet of code:
+ [31;01m*[0m   		die "$@"
+ [31;01m*[0m 
+ [31;01m*[0m If you need support, post the output of `emerge --info '=sys-fs/zfs-kmod-2.2.2::portage-stable'`,
+ [31;01m*[0m the complete build log and the output of `emerge -pqv '=sys-fs/zfs-kmod-2.2.2::portage-stable'`.
+ [31;01m*[0m The complete build log is located at '/build/amd64-usr/var/log/portage/sys-fs:zfs-kmod-2.2.2:20240314-125057.log'.
+ [31;01m*[0m For convenience, a symlink to the build log is located at '/build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/temp/build.log'.
+ [31;01m*[0m The ebuild environment file is located at '/build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/temp/environment'.
+ [31;01m*[0m Working directory: '/build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work/zfs-2.2.2'
+ [31;01m*[0m S: '/build/amd64-usr/var/tmp/portage/sys-fs/zfs-kmod-2.2.2/work/zfs-2.2.2'
