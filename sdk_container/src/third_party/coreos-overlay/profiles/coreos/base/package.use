@@ -165,3 +165,6 @@ dev-util/bpftool -llvm
 
 # Enable pkcs11 tools in net-libs/gnutls, for PKCS11 LUKS2 unlock with softhsm
 net-libs/gnutls pkcs11 tools
+
+# Disable python dependency by opensc plugin sys-apps/pcsc-lite
+dev-libs/opensc -pcsc-lite ctapi
