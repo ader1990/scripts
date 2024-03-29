@@ -21,6 +21,7 @@ IUSE="+tpm"
 DEPEND="
 	tpm? ( app-crypt/trousers )
 	>=dev-libs/openssl-1.1.0:0=
+	net-nds/openldap
 	sys-apps/systemd
 "
 RDEPEND="
