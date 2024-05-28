@@ -1,0 +1,2 @@
+# Various dependencies that also need to be up-to-date
+sys-apps/kmod                   ~amd64 ~x86
