@@ -165,6 +165,7 @@ die_notrace() {
     error "${DIE_PREFIX}${line}"
   done
   if [[ ! -e "${SCRIPTS_DIR}/NO_DEBUG_OUTPUT_DELETE_ME" ]]; then
+      exit 1
       error "${DIE_PREFIX}!!!!!!!!!!!!!!!!!!!!!!!!!"
       error "${DIE_PREFIX}!! BEGIN DEBUG OUTPUT: !!"
       error "${DIE_PREFIX}!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -179,7 +180,7 @@ die_notrace() {
       error
       error "${DIE_PREFIX}== DMESG =="
       error "${DIE_PREFIX}==========="
-      error_command_output "${DIE_PREFIX}" sudo dmesg
+      # error_command_output "${DIE_PREFIX}" sudo dmesg
       error
       error "${DIE_PREFIX}!!!!!!!!!!!!!!!!!!!!!!!"
       error "${DIE_PREFIX}!! END DEBUG OUTPUT: !!"
