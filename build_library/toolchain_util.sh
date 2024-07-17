@@ -15,7 +15,7 @@ TOOLCHAIN_PKGS=(
 # compiler to build a full native toolchain. Packages are not uploaded.
 declare -A CROSS_PROFILES
 CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos:coreos/amd64/generic"
-CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos:coreos/amd64/generic"
+CROSS_PROFILES["aarch64-cros-linux-gnu"]="coreos:coreos/arm64/generic"
 CROSS_PROFILES["riscv64-cros-linux-gnu"]="coreos:coreos/riscv/generic"
 
 # Map board names to CHOSTs and portage profiles. This is the
