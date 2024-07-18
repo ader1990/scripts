@@ -7,7 +7,7 @@ inherit multilib
 DESCRIPTION="UEFI Shim loader"
 HOMEPAGE="https://github.com/rhboot/shim"
 SRC_URI="https://github.com/rhboot/shim/releases/download/${PV}/shim-${PV}.tar.bz2"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 
 LICENSE="BSD"
 SLOT="0"

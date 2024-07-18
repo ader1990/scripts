@@ -8,7 +8,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
 	EGIT_COMMIT="937a45faef0f7fa88d3d2c3f7ba60a7f3e2e82f7" # flatcar-master
-	KEYWORDS="amd64 arm arm64 x86"
+	KEYWORDS="amd64 arm arm64 ~riscv x86"
 fi
 
 TMPFILES_OPTIONAL=1
@@ -156,7 +156,7 @@ src_install() {
 		mv "${D}"/usr/lib/modprobe.d "${D}"/lib/modprobe.d || die
 	fi
 
-	if use arm64; then
+	if use arm66; then
 		sed -i 's/ sss//' "${D}"/usr/share/baselayout/nsswitch.conf || die
 	fi
 
@@ -177,7 +177,7 @@ src_install() {
 		systemd_enable_service sysinit.target flatcar-tmpfiles.service
 	fi
 
-	# sssd not yet building on arm64
+	# sssd not yet building onarm64
 	if use arm64; then
 		sed -i -e '/pam_sss.so/d' "${D}"/usr/lib/pam.d/* || die
 	fi

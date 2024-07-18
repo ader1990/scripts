@@ -15,7 +15,7 @@ HOMEPAGE="https://github.com/Azure/WALinuxAgent"
 SRC_URI="${HOMEPAGE}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 SLOT="0"
 IUSE=""
 RESTRICT=""

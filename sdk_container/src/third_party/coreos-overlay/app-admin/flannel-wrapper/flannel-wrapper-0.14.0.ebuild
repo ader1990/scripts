@@ -8,7 +8,7 @@ inherit systemd
 DESCRIPTION="flannel (System Application Container)"
 HOMEPAGE="https://github.com/coreos/flannel"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 SRC_URI=""
 
 LICENSE="Apache-2.0"

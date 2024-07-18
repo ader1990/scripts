@@ -25,7 +25,7 @@ chown -R sdk:sdk /home/sdk
     fi
 
     if [ "${version}" != "${DISTRIB_RELEASE}" ] ; then
-        for target in amd64-usr arm64-usr riscv-usr; do
+        for target in riscv-usr; do
             if [ ! -d "/build/$target" ] ; then
                 continue
             fi

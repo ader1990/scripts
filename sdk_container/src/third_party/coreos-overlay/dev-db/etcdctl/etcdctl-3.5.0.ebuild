@@ -7,7 +7,7 @@ DESCRIPTION="The etcd command line client, v3, compatible with v2"
 HOMEPAGE="https://github.com/etcd-io/etcd"
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 IUSE=""
 
 S=${WORKDIR}/etcd-${PV}

@@ -32,7 +32,7 @@ BOARD_CHOSTS["riscv-usr"]="riscv64-cros-linux-gnu"
 BOARD_PROFILES["riscv-usr"]="coreos:coreos/riscv/generic"
 
 BOARD_NAMES=( "${!BOARD_CHOSTS[@]}" )
-
+BOARD_NAMES=( riscv-usr )
 # Declare the above globals as read-only to avoid accidental conflicts.
 declare -r \
     TOOLCHAIN_PKGS \
@@ -61,7 +61,7 @@ get_portage_arch() {
         s390*)      echo s390;;
         sh*)        echo sh;;
         x86_64*)    echo amd64;;
-        riscv*)     echo riscv;;
+        risc*)      echo riscv;;
         *)          die "Unknown CHOST '$1'";;
     esac
 }
@@ -84,7 +84,7 @@ get_kernel_arch() {
         s390*)      echo s390;;
         sh*)        echo sh;;
         x86_64*)    echo x86;;
-        riscv*)     echo riscv;;
+        risc*)     echo riscv;;
         *)          die "Unknown CHOST '$1'";;
     esac
 }

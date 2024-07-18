@@ -10,7 +10,7 @@ if [[ ${PV} == 9999 ]]; then
 	CRATES=""
 else
 	EGIT_COMMIT="2a2aa89cd6eda6202de62b8870ca50945c836c54" # flatcar-master
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 ~riscv"
 
 	CRATES="
 		anstream@0.6.4
