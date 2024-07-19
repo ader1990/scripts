@@ -156,7 +156,7 @@ src_install() {
 		mv "${D}"/usr/lib/modprobe.d "${D}"/lib/modprobe.d || die
 	fi
 
-	if use arm66; then
+	if use arm64; then
 		sed -i 's/ sss//' "${D}"/usr/share/baselayout/nsswitch.conf || die
 	fi
 
