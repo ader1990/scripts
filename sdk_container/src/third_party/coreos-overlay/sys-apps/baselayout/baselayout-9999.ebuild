@@ -11,7 +11,7 @@ else
 	EGIT_COMMIT="1ad3846c507888ffbb4209f6eaf294a60cda5fe6" # flatcar-master
 	SRC_URI="https://github.com/flatcar/baselayout/archive/${EGIT_COMMIT}.tar.gz -> flatcar-${PN}-${EGIT_COMMIT}.tar.gz"
 	S="${WORKDIR}/${PN}-${EGIT_COMMIT}"
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 fi
 
 inherit multilib

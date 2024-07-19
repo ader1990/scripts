@@ -208,7 +208,8 @@ else
     if [ -n "$cleanup" ] ; then
         echo "$docker image rm -f '${sdk_build_image}'" >> "$cleanup"
     fi
-    $docker build -t "${sdk_build_image}" \
+    export BUILDKIT_STEP_LOG_MAX_SIZE=-1
+    $docker build --progress plain -t "${sdk_build_image}" \
                  --build-arg VERSION="${docker_vernum}" \
                  --build-arg BINHOST="http://${binhost}" \
                  --build-arg OFFICIAL="${official}" \
@@ -224,12 +225,13 @@ fi
 #  of this step is to remove "white-outs", i.e. files which have been
 #  deleted in the full image but are still present in an intermediate layer.
 #
-for a in all arm64 amd64; do
+for a in all arm64 amd64 riscv64; do
     yell "Creating '$a' arch SDK image"
     rmarch=""; rmcross=""
     case $a in
         arm64) rmarch="amd64-usr"; rmcross="x86_64-cros-linux-gnu";;
         amd64) rmarch="arm64-usr"; rmcross="aarch64-cros-linux-gnu";;
+        riscv64) rmarch="riscv-usr"; rmcross="riscv64-cros-linux-gnu";;
     esac
     $docker build -t "$sdk_container_common_registry/flatcar-sdk-${a}:${docker_vernum}" \
                  --build-arg VERSION="${docker_vernum}" \
@@ -245,7 +247,7 @@ done
 #
 if ! $keep; then
     yell "Cleaning up intermediate containers"
-    $docker rmi flatcar-sdk-build:"${docker_vernum}"
-    $docker rmi flatcar-sdk-import:"${docker_vernum}"
-    $docker rmi flatcar-sdk-tarball:"${docker_vernum}"
+    # $docker rmi flatcar-sdk-build:"${docker_vernum}"
+    # $docker rmi flatcar-sdk-import:"${docker_vernum}"
+    # $docker rmi flatcar-sdk-tarball:"${docker_vernum}"
 fi

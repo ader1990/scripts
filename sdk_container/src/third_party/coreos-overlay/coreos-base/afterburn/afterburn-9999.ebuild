@@ -10,7 +10,7 @@ if [[ ${PV} == 9999 ]]; then
 	CRATES=""
 else
 	EGIT_COMMIT="0283c57f47b81871bf04e3c899344f8e73501744" # v5.7.0
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 
 	CRATES="
 		addr2line@0.24.1

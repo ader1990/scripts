@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/vmware/open-vmdk"
 EGIT_BRANCH="master"
 EGIT_COMMIT="8349c98ec8a617f5658b70d7de7d7d2830e18eaf"
 
-KEYWORDS="amd64 ~x86"
+KEYWORDS="amd64 arm64 riscv"
 IUSE=""
 
 DEPEND=""

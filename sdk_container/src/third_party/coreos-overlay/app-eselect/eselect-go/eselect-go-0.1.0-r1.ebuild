@@ -11,7 +11,7 @@ SRC_URI="https://github.com/coreos/eselect-go/releases/download/v${PV}/${P}.tar.
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 riscv"
 IUSE="test"
 RESTRICT="!test? ( test )"
 

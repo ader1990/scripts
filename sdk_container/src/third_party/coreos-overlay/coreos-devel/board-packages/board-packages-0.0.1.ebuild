@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 riscv"
 IUSE=""
 
 # Depend on everything OEMs need, but not the OEMs themselves.
@@ -24,15 +24,15 @@ RDEPEND="
 		app-emulation/open-vm-tools
 		coreos-base/nova-agent-container
 		coreos-base/nova-agent-watcher
+		app-emulation/amazon-ssm-agent
+		sys-boot/shim
+		sys-boot/shim-signed
 	)
 	sys-boot/grub
-	sys-boot/shim
-	sys-boot/shim-signed
 	app-containers/containerd
 	app-containers/docker
 	app-containers/docker-cli
 	app-containers/docker-buildx
-	app-emulation/amazon-ssm-agent
 	app-emulation/hv-daemons
 	app-emulation/wa-linux-agent
 	coreos-base/coreos

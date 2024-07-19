@@ -27,7 +27,7 @@ fi
 # make modules_prepare depends on pahole
 RDEPEND="dev-util/pahole"
 
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 riscv"
 IUSE=""
 
 # XXX: Note we must prefix the patch filenames with "z" to ensure they are
@@ -42,4 +42,5 @@ UNIPATCH_LIST="
 	${PATCH_DIR}/z0005-efi-Lock-down-the-kernel-if-booted-in-secure-boot-mo.patch \
 	${PATCH_DIR}/z0006-mtd-phram-slram-Disable-when-the-kernel-is-locked-do.patch \
 	${PATCH_DIR}/z0007-arm64-add-kernel-config-option-to-lock-down-when-in-.patch \
+	${PATCH_DIR}/z0008-qemu_fw_cfg-Add-support-for-RISC-V.architecture.patch \
 "

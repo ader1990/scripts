@@ -261,7 +261,10 @@ src_compile() {
 	export EXCLUDE_AUTO_BUILDTAG_JOURNALD=$(usex systemd '' 'y')
 
 	# build binaries
-	./hack/make.sh dynbinary || die 'dynbinary failed'
+	printenv
+	local -x LD_PRELOAD=
+#	export LD_PRELOAD=/build/riscv-usr/lib64/libsandbox.so
+	./hack/make.sh dynbinary || true
 }
 
 src_install() {

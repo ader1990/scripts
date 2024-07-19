@@ -67,7 +67,7 @@ HOMEPAGE='https://www.flatcar.org/'
 
 LICENSE='Apache-2.0'
 SLOT='0'
-KEYWORDS='amd64 arm64'
+KEYWORDS='amd64 arm64 riscv'
 IUSE="${OEMIDS[*]}"
 REQUIRED_USE="^^ ( ${OEMIDS[*]} )"
 

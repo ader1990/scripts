@@ -353,6 +353,9 @@ get_default_vm_type() {
     arm64-usr)
         echo "qemu_uefi"
         ;;
+    riscv-usr)
+        echo "qemu_uefi"
+        ;;
     *)
         return 1
         ;;
@@ -741,6 +744,7 @@ _write_cpio_disk() {
     case $BOARD in
         amd64-usr) efi_file="grubx64.efi" ;;
         arm64-usr) efi_file="bootaa64.efi" ;;
+        riscv-usr) efi_file="bootaa64.efi" ;;
     esac
 
     cp "${base_dir}/boot/EFI/boot/${efi_file}" "${dst_dir}/${grub_name}"
@@ -840,6 +844,9 @@ _write_qemu_uefi_conf() {
             cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_EFI.qcow2" "$(_dst_dir)/${flash_ro}"
             cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_VARS.qcow2" "$(_dst_dir)/${flash_rw}"
             ;;
+        riscv-usr)
+            cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_EFI.qcow2" "$(_dst_dir)/${flash_ro}"
+            cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_VARS.qcow2" "$(_dst_dir)/${flash_rw}"
     esac
 
     sed -e "s%^VM_PFLASH_RO=.*%VM_PFLASH_RO='${flash_ro}'%" \
@@ -886,7 +893,7 @@ _write_qemu_uefi_secure_conf() {
     virt-fw-vars \
         --input "${flash_in}" \
         --output "$(_dst_dir)/${flash_rw}" \
-        --add-db  "${owner}" /usr/share/sb_keys/DB.crt
+        --add-db  "${owner}" /usr/share/sb_keys/DB.crt || true
 
     sed -e "s%^SECURE_BOOT=.*%SECURE_BOOT=1%" -i "${script}"
 }

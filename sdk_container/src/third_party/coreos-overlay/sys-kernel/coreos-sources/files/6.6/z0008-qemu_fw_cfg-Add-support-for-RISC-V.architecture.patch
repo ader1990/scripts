@@ -1,0 +1,56 @@
+From f2de37a572853d340f945a7748f74e3ed8c6b743 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@rivosinc.com>
+Date: Thu, 12 Oct 2023 12:28:52 +0200
+Subject: [PATCH] riscv, qemu_fw_cfg: Add support for RISC-V architecture
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Qemu fw_cfg support was missing for RISC-V, which made it hard to do
+proper vmcore dumps from qemu.
+
+Add the missing RISC-V arch-defines.
+
+You can now do vmcore dumps from qemu. Add "-device vmcoreinfo" to the
+qemu command-line. From the qemu monitor:
+  (qemu) dump-guest-memory vmcore
+
+The vmcore can now be used, e.g., with the "crash" utility.
+
+Acked-by: "Michael S. Tsirkin" <mst@redhat.com>
+Acked-by: Alistair Francis <alistair.francis@wdc.com>
+Tested-by: Clément Léger <cleger@rivosinc.com>
+Signed-off-by: Björn Töpel <bjorn@rivosinc.com>
+Message-Id: <20231012102852.234442-1-bjorn@kernel.org>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+---
+ drivers/firmware/Kconfig       | 2 +-
+ drivers/firmware/qemu_fw_cfg.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index b59e3041fd6275..f05ff56629b393 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -155,7 +155,7 @@ config RASPBERRYPI_FIRMWARE
+ 
+ config FW_CFG_SYSFS
+ 	tristate "QEMU fw_cfg device support in sysfs"
+-	depends on SYSFS && (ARM || ARM64 || PARISC || PPC_PMAC || SPARC || X86)
++	depends on SYSFS && (ARM || ARM64 || PARISC || PPC_PMAC || RISCV || SPARC || X86)
+ 	depends on HAS_IOPORT_MAP
+ 	default n
+ 	help
+diff --git a/drivers/firmware/qemu_fw_cfg.c b/drivers/firmware/qemu_fw_cfg.c
+index a69399a6b7c005..1448f61173b357 100644
+--- a/drivers/firmware/qemu_fw_cfg.c
++++ b/drivers/firmware/qemu_fw_cfg.c
+@@ -211,7 +211,7 @@ static void fw_cfg_io_cleanup(void)
+ 
+ /* arch-specific ctrl & data register offsets are not available in ACPI, DT */
+ #if !(defined(FW_CFG_CTRL_OFF) && defined(FW_CFG_DATA_OFF))
+-# if (defined(CONFIG_ARM) || defined(CONFIG_ARM64))
++# if (defined(CONFIG_ARM) || defined(CONFIG_ARM64) || defined(CONFIG_RISCV))
+ #  define FW_CFG_CTRL_OFF 0x08
+ #  define FW_CFG_DATA_OFF 0x00
+ #  define FW_CFG_DMA_OFF 0x10

@@ -45,7 +45,7 @@ RDEPEND="
 	app-arch/xz-utils:=
 	app-crypt/libb2
 	>=dev-libs/expat-2.1:=
-	dev-libs/libffi:=
+	>=dev-libs/libffi-3.4.4-r1:=
 	dev-libs/mpdecimal:=
 	dev-python/gentoo-common
 	>=sys-libs/zlib-1.1.3:=
@@ -141,6 +141,7 @@ src_prepare() {
 build_cbuild_python() {
 	# Hack to workaround get_libdir not being able to handle CBUILD, bug #794181
 	local cbuild_libdir=$(unset PKG_CONFIG_PATH ; $(tc-getBUILD_PKG_CONFIG) --keep-system-libs --libs-only-L libffi)
+	append-flags "${cbuild_libdir} -I/build/riscv-usr/usr/lib64/libffi/include -I/usr/lib64/libffi/include"
 
 	# pass system CFLAGS & LDFLAGS as _NODIST, otherwise they'll get
 	# propagated to sysconfig for built extensions

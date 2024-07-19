@@ -257,6 +257,7 @@ src_compile() {
 	export EXCLUDE_AUTO_BUILDTAG_JOURNALD=$(usex systemd '' 'y')
 
 	# build binaries
+	local -x LD_PRELOAD=
 	./hack/make.sh dynbinary || die 'dynbinary failed'
 }
 
