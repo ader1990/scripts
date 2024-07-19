@@ -26,7 +26,7 @@ else
 
 	if [[ ${PV} != *rc* ]] ; then
 		# Flatcar: mark as stable
-		KEYWORDS="~alpha amd64 ~arm arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+		KEYWORDS="~alpha amd64 ~arm arm64 ~riscv ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
 	fi
 fi
 

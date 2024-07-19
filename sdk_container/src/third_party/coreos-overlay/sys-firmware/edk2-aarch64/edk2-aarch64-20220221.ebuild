@@ -11,7 +11,7 @@ SRC_URI="https://kojipkgs.fedoraproject.org//packages/edk2/20230524/3.fc38/noarc
 
 LICENSE="BSD-2-Clause-Patent openssl"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 
 S="${WORKDIR}"
 

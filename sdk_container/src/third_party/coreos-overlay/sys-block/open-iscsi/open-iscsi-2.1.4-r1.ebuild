@@ -12,7 +12,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0/0.2"
-KEYWORDS="~alpha amd64 arm arm64 ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 ~riscv ~ia64 ~mips ~ppc ~ppc64 ~sparc ~x86"
 IUSE="debug infiniband libressl +tcp rdma systemd"
 
 DEPEND="

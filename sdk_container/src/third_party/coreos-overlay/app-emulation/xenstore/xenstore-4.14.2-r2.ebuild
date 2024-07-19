@@ -17,7 +17,7 @@ SRC_URI="https://downloads.xenproject.org/release/xen/${MY_PV}/xen-${MY_PV}.tar.
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm arm64 ~x86"
+KEYWORDS="amd64 ~arm arm64 ~riscv ~x86"
 IUSE=""
 
 DEPEND="
@@ -38,7 +38,7 @@ pkg_setup() {
 			export XEN_TARGET_ARCH="x86_64"
 		elif use arm; then
 			export XEN_TARGET_ARCH="arm32"
-		elif use arm64; then
+		elif use arm64 ~riscv; then
 			export XEN_TARGET_ARCH="arm64"
 		else
 			die "Unsupported architecture!"

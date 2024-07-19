@@ -165,6 +165,7 @@ die_notrace() {
     error "${DIE_PREFIX}${line}"
   done
   if [[ ! -e "${SCRIPTS_DIR}/NO_DEBUG_OUTPUT_DELETE_ME" ]]; then
+      exit 1
       error "${DIE_PREFIX}!!!!!!!!!!!!!!!!!!!!!!!!!"
       error "${DIE_PREFIX}!! BEGIN DEBUG OUTPUT: !!"
       error "${DIE_PREFIX}!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -1009,6 +1010,15 @@ setup_qemu_static() {
         die "Missing basic layout in target rootfs"
       fi
     ;;
+    riscv-usr)
+      if [[ -f "${root_fs_dir}/sbin/ldconfig" ]]; then
+        sudo cp /usr/bin/qemu-riscv64 "${root_fs_dir}"/usr/bin/qemu-riscv64-static
+        echo export QEMU_LD_PREFIX=\"/build/risc-usr/\" | sudo tee /etc/profile.d/qemu-riscv64.sh
+        . /etc/profile.d/qemu-riscv64.sh
+      else
+        die "Missing basic layout in target rootfs"
+      fi
+    ;;
     *) die "Unsupported arch" ;;
   esac
 }
@@ -1020,6 +1030,13 @@ clean_qemu_static() {
     arm64-usr)
       if [[ -f "${root_fs_dir}/usr/bin/qemu-aarch64-static" ]]; then
         sudo rm "${root_fs_dir}"/usr/bin/qemu-aarch64-static
+      else
+        die "File not found"
+      fi
+    ;;
+    riscv-usr)
+      if [[ -f "${root_fs_dir}/usr/bin/qemu-riscv64-static" ]]; then
+        sudo rm "${root_fs_dir}"/usr/bin/qemu-riscv64-static
       else
         die "File not found"
       fi

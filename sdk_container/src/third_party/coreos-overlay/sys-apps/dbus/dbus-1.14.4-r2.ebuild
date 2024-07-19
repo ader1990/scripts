@@ -17,8 +17,8 @@ SRC_URI="https://dbus.freedesktop.org/releases/dbus/${P}.tar.xz"
 
 LICENSE="|| ( AFL-2.1 GPL-2 )"
 SLOT="0"
-# Flatcar: Mark it as stable for amd64 and arm64.
-KEYWORDS="~alpha amd64 ~arm arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
+# Flatcar: Mark it as stable for amd64 and arm64 ~riscv.
+KEYWORDS="~alpha amd64 ~arm arm64 ~riscv ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 IUSE="debug doc elogind selinux static-libs systemd test X"
 RESTRICT="!test? ( test )"
 
