@@ -54,8 +54,8 @@ if [[ ${PV} != 9999 ]]; then
 		"
 		S=${WORKDIR}/${P%_*}
 	fi
-	# Flatcar: Mark as stable for arm64.
-	KEYWORDS="amd64 ~arm arm64 ~ia64 ~ppc ~ppc64 ~riscv ~sparc x86"
+	# Flatcar: Mark as stable for arm64 ~riscv.
+	KEYWORDS="amd64 ~arm arm64 ~riscv ~ia64 ~ppc ~ppc64 ~riscv ~sparc x86"
 else
 	inherit git-r3
 	EGIT_REPO_URI="https://git.savannah.gnu.org/git/grub.git"
@@ -89,8 +89,8 @@ IUSE="device-mapper doc efiemu +fonts mount nls sdl test +themes truetype libzfs
 GRUB_ALL_PLATFORMS=( coreboot efi-32 efi-64 emu ieee1275 loongson multiboot
 	qemu qemu-mips pc uboot xen xen-32 xen-pvh )
 
-# Flatcar: Add arm64 to the list of platforms
-GRUB_ALL_PLATFORMS+=( arm64 )
+# Flatcar: Add arm64 ~riscv to the list of platforms
+GRUB_ALL_PLATFORMS+=( arm64 ~riscv )
 IUSE+=" ${GRUB_ALL_PLATFORMS[@]/#/grub_platforms_}"
 
 REQUIRED_USE="
@@ -100,7 +100,7 @@ REQUIRED_USE="
 	grub_platforms_loongson? ( fonts )
 "
 
-# Flatcar: Add a dependency on aarch64 cross gcc for arm64 platform.
+# Flatcar: Add a dependency on aarch64 cross gcc for arm64 ~riscv platform.
 BDEPEND="
 	${PYTHON_DEPS}
 	>=sys-devel/flex-2.5.35
@@ -214,7 +214,7 @@ grub_configure() {
 		efi*) platform=efi ;;
 		xen-pvh) platform=xen_pvh ;;
 		xen*) platform=xen ;;
-		# Flatcar: Handle arm64 as efi platform
+		# Flatcar: Handle arm64 ~riscv as efi platform
 		arm64*) platform=efi ;;
 		guessed) ;;
 		*) platform=${MULTIBUILD_VARIANT} ;;

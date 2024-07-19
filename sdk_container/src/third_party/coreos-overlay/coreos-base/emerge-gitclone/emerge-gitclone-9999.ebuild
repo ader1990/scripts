@@ -8,7 +8,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
 	EGIT_COMMIT="00396595376d8d6a3c4b9251ba94e9de2d7a9e39" # flatcar-master
-	KEYWORDS="amd64 arm arm64 x86"
+	KEYWORDS="amd64 arm arm64 ~riscv x86"
 fi
 
 PYTHON_COMPAT=( python3_{6..11} )
