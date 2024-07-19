@@ -26,7 +26,6 @@ IUSE="cros_host symlink-usr"
 DEPEND="sys-apps/systemd
 	net-dns/libidn2:=
 	!coreos-base/coreos-base
-	!<sys-libs/glibc-2.17-r1
 	!<=sys-libs/nss-usrfiles-2.18.1_pre"
 
 # Make sure coreos-init is not installed in the SDK

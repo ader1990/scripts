@@ -199,7 +199,6 @@ RDEPEND="${RDEPEND}
 	sys-fs/xfsprogs
 	sys-kernel/coreos-firmware
 	sys-kernel/coreos-kernel
-	sys-libs/glibc
 	sys-libs/nss-usrfiles
 	sys-libs/timezone-data
 	sys-power/acpid
@@ -213,5 +212,9 @@ RDEPEND+="
 	amd64? (
 		app-emulation/qemu-guest-agent
 		sys-auth/google-oslogin
+	    sys-libs/glibc
+	)
+	arm64? (
+	    sys-libs/glibc
 	)
 "
