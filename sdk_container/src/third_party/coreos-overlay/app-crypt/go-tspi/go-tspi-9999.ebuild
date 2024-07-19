@@ -9,7 +9,7 @@ if [[ "${PV}" == 9999 ]]; then
         KEYWORDS="~amd64 ~arm64"
 else
         EGIT_COMMIT="27182e3e7b1dfcfb398b5408a619abc4f652a38b"
-        KEYWORDS="amd64 arm64"
+        KEYWORDS="amd64 arm64 ~riscv"
 fi
 
 IUSE=""

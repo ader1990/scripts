@@ -8,7 +8,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
 	EGIT_COMMIT="937a45faef0f7fa88d3d2c3f7ba60a7f3e2e82f7" # flatcar-master
-	KEYWORDS="amd64 arm arm64 x86"
+	KEYWORDS="amd64 arm arm64 ~riscv x86"
 fi
 
 TMPFILES_OPTIONAL=1
@@ -26,7 +26,6 @@ IUSE="cros_host symlink-usr"
 DEPEND="sys-apps/systemd
 	net-dns/libidn2:=
 	!coreos-base/coreos-base
-	!<sys-libs/glibc-2.17-r1
 	!<=sys-libs/nss-usrfiles-2.18.1_pre"
 
 # Make sure coreos-init is not installed in the SDK

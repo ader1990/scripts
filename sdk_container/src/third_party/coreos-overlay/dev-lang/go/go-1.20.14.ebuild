@@ -5,4 +5,4 @@ EAPI=7
 
 inherit coreos-go-lang
 
-KEYWORDS="-* amd64 arm64"
+KEYWORDS="-* amd64 arm64 ~riscv"

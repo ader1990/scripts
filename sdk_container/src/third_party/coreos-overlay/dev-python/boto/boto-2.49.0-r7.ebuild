@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/boto/boto https://pypi.org/project/boto/"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 ppc ~ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 arm arm64 ~riscv ppc ~ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
 
 PATCHES=(
 	# taken from https://bugs.debian.org/909545

@@ -11,5 +11,5 @@ SRC_URI="https://github.com/flatcar/${PN}/releases/download/v${PV}/${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 IUSE=""

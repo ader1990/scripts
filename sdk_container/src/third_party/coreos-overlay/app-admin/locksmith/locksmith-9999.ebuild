@@ -10,7 +10,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm64"
 else
 	EGIT_COMMIT="439d44f24b24f679d08f309399f6bb2f82614637" # flatcar-master
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 ~riscv"
 fi
 
 DESCRIPTION="locksmith"

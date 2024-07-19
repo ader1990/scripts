@@ -12,7 +12,7 @@ SRC_URI="https://github.com/Azure/azure-nvme-utils/archive/${GIT_COMMIT}.zip -> 
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 
 DEPEND=""
 RDEPEND="${DEPEND}"

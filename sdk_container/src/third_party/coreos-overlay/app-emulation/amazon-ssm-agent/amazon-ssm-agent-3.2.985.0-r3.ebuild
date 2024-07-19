@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/aws/amazon-ssm-agent"
 LICENSE="Apache-2.0"
 SRC_URI="https://${EGO_PN}/archive/${PV}.tar.gz -> ${P}.tar.gz ${EGO_VENDOR_URI}"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 
 S="${WORKDIR}/${PN}-${PV}/src/${EGO_PN}"
 

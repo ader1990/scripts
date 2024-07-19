@@ -8,7 +8,7 @@ inherit systemd tmpfiles
 
 DESCRIPTION="etcd (System Application Container)"
 HOMEPAGE="https://github.com/etcd-io/etcd"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 ~riscv"
 
 LICENSE="Apache-2.0"
 IUSE=""
