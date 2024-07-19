@@ -75,7 +75,6 @@ DEPEND="
 	"
 
 RDEPEND="${DEPEND}
-	>=sys-libs/glibc-2.17[nscd]
 	selinux? ( >=sec-policy/selinux-sssd-2.20120725-r9 )
 	"
 # Flatcar: require only autoconf:2.69
