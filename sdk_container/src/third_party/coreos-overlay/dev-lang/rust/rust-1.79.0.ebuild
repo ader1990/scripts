@@ -331,6 +331,9 @@ src_configure() {
 	if [ "${CBUILD}" != "aarch64-unknown-linux-gnu" ] && [ -f /usr/bin/aarch64-cros-linux-gnu-gcc ]; then
 		rust_targets="${rust_targets},\"aarch64-unknown-linux-gnu\""
 	fi
+	if [ "${CBUILD}" != "riscv64-unknown-linux-gnu" ] && [ -f /usr/bin/riscv64-cros-linux-gnu-gcc ]; then
+		rust_targets="${rust_targets},\"riscv64-unknown-linux-gnu\""
+	fi
 	rust_targets="${rust_targets#,}"
 
 	# Flatcar: Remove rustdoc to keep the SDK size minimal.
