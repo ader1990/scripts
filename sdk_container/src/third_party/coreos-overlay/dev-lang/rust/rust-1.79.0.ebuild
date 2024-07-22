@@ -331,10 +331,11 @@ src_configure() {
 	if [ "${CBUILD}" != "aarch64-unknown-linux-gnu" ] && [ -f /usr/bin/aarch64-cros-linux-gnu-gcc ]; then
 		rust_targets="${rust_targets},\"aarch64-unknown-linux-gnu\""
 	fi
-	if [ "${CBUILD}" != "riscv64-unknown-linux-gnu" ] && [ -f /usr/bin/riscv64-unknown-linux-gnu ]; then
+	if [ "${CBUILD}" != "riscv64-unknown-linux-gnu" ] && [ -f /usr/bin/riscv64-cros-linux-gnu-gcc ]; then
 		rust_targets="${rust_targets},\"riscv64gc-unknown-linux-gnu\""
 	fi
 	rust_targets="${rust_targets#,}"
+	echo $rust_targets
 
 	# Flatcar: Remove rustdoc to keep the SDK size minimal.
 	local tools='"cargo"'
@@ -387,8 +388,8 @@ src_configure() {
 		enable-warnings = false
 		[llvm.build-config]
 		CMAKE_VERBOSE_MAKEFILE = "ON"
-		CMAKE_C_FLAGS_${cm_btype} = "${CFLAGS}"
-		CMAKE_CXX_FLAGS_${cm_btype} = "${CXXFLAGS}"
+		CMAKE_C_FLAGS_${cm_btype} = "-O2 -pipe"
+		CMAKE_CXX_FLAGS_${cm_btype} = "-O2 -pipe"
 		CMAKE_EXE_LINKER_FLAGS_${cm_btype} = "${LDFLAGS}"
 		CMAKE_MODULE_LINKER_FLAGS_${cm_btype} = "${LDFLAGS}"
 		CMAKE_SHARED_LINKER_FLAGS_${cm_btype} = "${LDFLAGS}"
@@ -489,7 +490,7 @@ src_configure() {
 	done
 	# Flatcar: workaround for cross-compile. Could soon be replaced
 	# by the "experimental cross support" below
-	if [ "${CBUILD}" != "aarch64-unknown-linux-gnu" ] && [ -f /usr/bin/aarch64-cros-linux-gnu-gcc ]; then
+	if ([ "${CBUILD}" != "aarch64-unknown-linux-gnu" ] && [ -f /usr/bin/aarch64-cros-linux-gnu-gcc ]) || ([ "${CBUILD}" != "riscv64-unknown-linux-gnu" ] && [ -f /usr/bin/riscv64-cros-linux-gnu-gcc ]); then
 		cat <<- 'EOF' > "${S}/cc.sh"
 			#!/bin/bash
 			args=("$@")
@@ -509,6 +510,26 @@ src_configure() {
 			cxx = "${S}/cxx.sh"
 			linker = "${S}/cc.sh"
 			ar = "aarch64-cros-linux-gnu-ar"
+		EOF
+		cat <<- 'EOF' > "${S}/cc-riscv.sh"
+			#!/bin/bash
+			args=("$@")
+			filtered=()
+			for i in "${args[@]}"; do
+			  if [ "$i" != "-mindirect-branch-register" ] && [ "$i" != "-mindirect-branch=thunk" ]; then
+			    filtered+=("$i")
+			  fi
+			done
+			riscv64-cros-linux-gnu-gcc --sysroot=/usr/riscv64-cros-linux-gnu "${filtered[@]}"
+		EOF
+		sed 's/gcc/g++/g' "${S}/cc-riscv.sh" > "${S}/cxx-riscv.sh"
+		chmod +x "${S}/cc-riscv.sh" "${S}/cxx-riscv.sh"
+		cat <<- EOF >> "${S}"/config.toml
+			[target.riscv64-unknown-linux-gnu]
+			cc = "${S}/cc-riscv.sh"
+			cxx = "${S}/cxx-riscv.sh"
+			linker = "${S}/cc-riscv.sh"
+			ar = "riscv64-cros-linux-gnu-ar"
 		EOF
 	fi
 	if use wasm; then
