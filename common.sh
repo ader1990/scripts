@@ -1013,7 +1013,7 @@ setup_qemu_static() {
     riscv-usr)
       if [[ -f "${root_fs_dir}/sbin/ldconfig" ]]; then
         sudo cp /usr/bin/qemu-riscv64 "${root_fs_dir}"/usr/bin/qemu-riscv64-static
-        echo export QEMU_LD_PREFIX=\"/build/risc-usr/\" | sudo tee /etc/profile.d/qemu-riscv64.sh
+        echo export QEMU_LD_PREFIX=\"/build/riscv-usr/\" | sudo tee /etc/profile.d/qemu-riscv64.sh
         . /etc/profile.d/qemu-riscv64.sh
       else
         die "Missing basic layout in target rootfs"
