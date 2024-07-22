@@ -1,2 +1,2 @@
-CFLAGS="-O2 -pipe -march=rv64gc -mabi=lp64d"
+CFLAGS="-O2 -pipe -march=rv64gc -mabi=lp64d -I/build/riscv-usr/usr/include -Wno-format-nonliteral"
 CXXFLAGS="${CFLAGS}"
