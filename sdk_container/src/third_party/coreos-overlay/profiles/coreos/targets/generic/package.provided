@@ -5,9 +5,9 @@
 # disable them and we have no need/use for them in prod images.
 
 # pulled in by app-crypt/pinentry
-app-eselect/eselect-pinentry-0.7.3
 
 # pulled in by app-editors/vim
+#app-eselect/eselect-pinentry-0.7.4
 app-eselect/eselect-vi-1.2
 
 # pulled in by net-firewall/iptables
