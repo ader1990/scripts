@@ -29,6 +29,7 @@ go-env_set_compile_environment() {
 	case "${arch}" in
 		x86)	GOARCH="386" ;;
 		x64-*)	GOARCH="amd64" ;;
+		riscv*)	GOARCH="riscv64" ;;
 		ppc64)	if [[ "$(tc-endian "${${CHOST}}")" = "big" ]] ; then
 					GOARCH="ppc64"
 				else
