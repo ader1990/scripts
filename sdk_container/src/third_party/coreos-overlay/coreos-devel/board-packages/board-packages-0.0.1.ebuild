@@ -24,12 +24,15 @@ RDEPEND="
 		app-emulation/open-vm-tools
 		coreos-base/nova-agent-container
 		coreos-base/nova-agent-watcher
+		app-emulation/amazon-ssm-agent
+	)
+	arm64? (
+		app-emulation/amazon-ssm-agent
 	)
 	sys-boot/grub
 	app-containers/containerd
 	app-containers/docker
 	app-containers/docker-cli
-	app-emulation/amazon-ssm-agent
 	app-emulation/wa-linux-agent
 	coreos-base/coreos
 	coreos-base/coreos-dev
