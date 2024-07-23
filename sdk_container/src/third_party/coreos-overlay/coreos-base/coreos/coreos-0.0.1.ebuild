@@ -164,7 +164,6 @@ RDEPEND="${RDEPEND}
 	sys-apps/grep
 	sys-apps/ignition
 	sys-apps/iproute2
-	sys-apps/kexec-tools
 	sys-apps/keyutils
 	sys-apps/less
 	sys-apps/lshw
@@ -212,9 +211,11 @@ RDEPEND+="
 	amd64? (
 		app-emulation/qemu-guest-agent
 		sys-auth/google-oslogin
-	    sys-libs/glibc
+		sys-libs/glibc
+		sys-apps/kexec-tools
 	)
 	arm64? (
-	    sys-libs/glibc
+		sys-libs/glibc
+		sys-apps/kexec-tools
 	)
 "
