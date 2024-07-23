@@ -34,7 +34,7 @@ function set_prefix_vars() {
       ;;
     riscv-usr)
       PREFIX_CHOST="riscv64-cros-linux-gnu"
-      PREFIX_KEYWORDS="riscv -~riscv"
+      PREFIX_KEYWORDS="riscv ~riscv"
       ;;
   esac
 
