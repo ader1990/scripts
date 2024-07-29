@@ -16,9 +16,7 @@ TOOLCHAIN_PKGS=(
 declare -A CROSS_PROFILES
 CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos-overlay:coreos/amd64/generic"
 CROSS_PROFILES["aarch64-cros-linux-gnu"]="coreos-overlay:coreos/arm64/generic"
-CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos:coreos/amd64/generic"
-CROSS_PROFILES["aarch64-cros-linux-gnu"]="coreos:coreos/arm64/generic"
-CROSS_PROFILES["riscv64-cros-linux-gnu"]="coreos:coreos/riscv/generic"
+CROSS_PROFILES["riscv64-cros-linux-gnu"]="coreos-overlay:coreos/riscv/generic"
 
 # Map board names to CHOSTs and portage profiles. This is the
 # definitive list, there is assorted code new and old that either
@@ -31,7 +29,7 @@ BOARD_CHOSTS["arm64-usr"]="aarch64-cros-linux-gnu"
 BOARD_PROFILES["arm64-usr"]="coreos-overlay:coreos/arm64/generic"
 
 BOARD_CHOSTS["riscv-usr"]="riscv64-cros-linux-gnu"
-BOARD_PROFILES["riscv-usr"]="coreos:coreos/riscv/generic"
+BOARD_PROFILES["riscv-usr"]="coreos-overlay:coreos/riscv/generic"
 
 BOARD_NAMES=( "${!BOARD_CHOSTS[@]}" )
 
