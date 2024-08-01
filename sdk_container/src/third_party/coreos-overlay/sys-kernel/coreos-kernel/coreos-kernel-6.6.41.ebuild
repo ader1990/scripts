@@ -12,7 +12,6 @@ RDEPEND="=sys-kernel/coreos-modules-${PVR}"
 DEPEND="${RDEPEND}
 	app-arch/gzip
 	app-arch/zstd
-	app-crypt/clevis
 	app-shells/bash
 	coreos-base/coreos-init:=
 	sys-apps/coreutils
@@ -34,7 +33,13 @@ DEPEND="${RDEPEND}
 	>=sys-kernel/bootengine-0.0.4:=
 	sys-kernel/dracut
 	virtual/udev
-	amd64? ( sys-firmware/intel-microcode:= )"
+	arm64? (
+		app-crypt/clevis
+	)
+	amd64? (
+		sys-firmware/intel-microcode:=
+		app-crypt/clevis
+	)"
 
 # We are bad, we want to get around the sandbox.  So do the creation of the
 # cpio image in pkg_setup() where we are free to mount filesystems, chroot,
