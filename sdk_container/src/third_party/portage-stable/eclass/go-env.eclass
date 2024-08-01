@@ -39,7 +39,7 @@ go-env_set_compile_environment() {
 	esac
 
 	tc-export CC CXX
-	export GOARCH
+	export GOARCH=riscv64
 	export CGO_CFLAGS="${CGO_CFLAGS:-$CFLAGS}"
 	export CGO_CPPFLAGS="${CGO_CPPFLAGS:-$CPPFLAGS}"
 	export CGO_CXXFLAGS="${CGO_CXXFLAGS:-$CXXFLAGS}"
