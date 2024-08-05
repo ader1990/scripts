@@ -28,7 +28,7 @@ src_prepare() {
 	local x cpp=
 	for x in {${CHOST}-,}{,clang-}cpp; do
 		if type -P "${x}" >/dev/null; then
-			cpp=${x}
+			cpp='riscv64-cros-linux-gnu-gcc \-E \-\-sysroot=\/build\/riscv-usr'
 			break
 		fi
 	done

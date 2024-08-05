@@ -81,11 +81,22 @@ RDEPEND="${RDEPEND}
 
 # sys-devel/gettext: it embeds 'envsubst' binary which is useful for simple file templating.
 RDEPEND="${RDEPEND}
+	arm64? (
+		sys-boot/efibootmgr
+		app-crypt/clevis
+		app-crypt/tpmpolicy
+		app-admin/mayday
+	)
+	amd64? (
+		sys-boot/efibootmgr
+		app-crypt/clevis
+		app-crypt/tpmpolicy
+		app-admin/mayday
+	)
 	app-admin/azure-nvme-utils
 	app-admin/etcd-wrapper
 	app-admin/flannel-wrapper
 	app-admin/locksmith
-	app-admin/mayday
 	app-admin/sdnotify-proxy
 	app-admin/sudo
 	app-admin/toolbox
@@ -102,10 +113,8 @@ RDEPEND="${RDEPEND}
 	app-arch/zip
 	app-arch/ncompress
 	app-crypt/adcli
-	app-crypt/clevis
 	app-crypt/gnupg
 	app-crypt/go-tspi
-	app-crypt/tpmpolicy
 	app-editors/vim
 	app-containers/cri-tools
 	app-misc/ca-certificates
@@ -183,7 +192,6 @@ RDEPEND="${RDEPEND}
 	sys-auth/sssd
 	sys-block/open-iscsi
 	sys-block/parted
-	sys-boot/efibootmgr
 	sys-cluster/ipvsadm
 	sys-devel/gettext
 	sys-fs/btrfs-progs

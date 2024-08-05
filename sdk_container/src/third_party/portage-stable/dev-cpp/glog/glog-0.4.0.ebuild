@@ -12,7 +12,7 @@ SRC_URI="https://github.com/google/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
 # -sparc as libunwind is not ported on sparc
-KEYWORDS="amd64 arm arm64 ~hppa ~ia64 ~mips ppc ppc64 ~s390 -sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm arm64 ~riscv ~hppa ~ia64 ~mips ppc ppc64 ~s390 -sparc x86 ~amd64-linux ~x86-linux"
 IUSE="gflags static-libs test"
 RESTRICT="test"
 

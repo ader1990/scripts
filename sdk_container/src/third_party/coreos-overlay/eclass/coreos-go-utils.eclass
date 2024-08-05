@@ -27,6 +27,7 @@ go_arch() {
 		x64-*)	echo amd64;;
 		ppc64)
 			[[ "${endian}" = big ]] && echo ppc64 || echo ppc64le ;;
+		riscv*)	echo riscv64;;
 		*)	echo "${portage_arch}";;
 	esac
 }

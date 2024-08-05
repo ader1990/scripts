@@ -2,12 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-EGIT_REPO_URI="https://github.com/flatcar/bootengine.git"
+EGIT_REPO_URI="https://github.com/ader1990/bootengine.git"
 
 if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
-	EGIT_COMMIT="fb2631ce5e6a21d044c8dca73f59db01f9d5abcf" # flatcar-master
+	EGIT_COMMIT="7710045bc3e87586ec1936c6cdbfa4a7d930d59f"
+	EGIT_BRANCH="ader1990/remove-hyperv-modules-for-riscv"
 	KEYWORDS="amd64 arm arm64 ~riscv x86"
 fi
 

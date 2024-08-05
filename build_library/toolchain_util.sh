@@ -16,9 +16,7 @@ TOOLCHAIN_PKGS=(
 declare -A CROSS_PROFILES
 CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos-overlay:coreos/amd64/generic"
 CROSS_PROFILES["aarch64-cros-linux-gnu"]="coreos-overlay:coreos/arm64/generic"
-CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos:coreos/amd64/generic"
-CROSS_PROFILES["aarch64-cros-linux-gnu"]="coreos:coreos/arm64/generic"
-CROSS_PROFILES["riscv64-cros-linux-gnu"]="coreos:coreos/riscv/generic"
+CROSS_PROFILES["riscv64-cros-linux-gnu"]="coreos-overlay:coreos/riscv/generic"
 
 # Map board names to CHOSTs and portage profiles. This is the
 # definitive list, there is assorted code new and old that either
@@ -31,7 +29,7 @@ BOARD_CHOSTS["arm64-usr"]="aarch64-cros-linux-gnu"
 BOARD_PROFILES["arm64-usr"]="coreos-overlay:coreos/arm64/generic"
 
 BOARD_CHOSTS["riscv-usr"]="riscv64-cros-linux-gnu"
-BOARD_PROFILES["riscv-usr"]="coreos:coreos/riscv/generic"
+BOARD_PROFILES["riscv-usr"]="coreos-overlay:coreos/riscv/generic"
 
 BOARD_NAMES=( "${!BOARD_CHOSTS[@]}" )
 
@@ -302,6 +300,9 @@ _configure_sysroot() {
     "${sudo[@]}" tee "${ROOT}/etc/portage/make.conf" <<EOF
 $(portageq envvar -v CHOST CBUILD ROOT DISTDIR PKGDIR)
 HOSTCC=\${CBUILD}-gcc
+CPP="\${CHOST}-gcc -E --sysroot=\${SYSROOT}"
+CC="\${CHOST}-gcc --sysroot=\${SYSROOT}"
+CXX="\${CHOST}-g++ --sysroot=\${SYSROOT}"
 PKG_CONFIG_PATH="\${SYSROOT}/usr/lib/pkgconfig/"
 # Enable provenance reporting by default. Produced files are in /usr/share/SLSA
 GENERATE_SLSA_PROVENANCE="true"
@@ -431,7 +432,6 @@ install_cross_toolchain() {
     # Setup environment and wrappers for our shiny new toolchain
     binutils_set_latest_profile "${cross_chost}"
     gcc_set_latest_profile "${cross_chost}"
-    "${sudo[@]}" CC_QUIET=1 sysroot-config --install-links "${cross_chost}"
 }
 
 # Build/install toolchain dependencies into the cross sysroot for a
@@ -477,31 +477,6 @@ install_cross_libs() {
 
     # OK, clear as mud? Install those dependencies now!
     PORTAGE_CONFIGROOT="$ROOT" "${sudo[@]}" emerge --root="$ROOT" --sysroot="$ROOT" "$@" --update $cross_deps
-}
-
-install_cross_rust() {
-    local cross_chost="$1"; shift
-    local emerge_flags=( "$@" --binpkg-respect-use=y --update )
-    local cbuild="$(portageq envvar CBUILD)"
-
-    # may be called from either catalyst (root) or upgrade_chroot (user)
-    local sudo=("env")
-    if [[ $(id -u) -ne 0 ]]; then
-        sudo=("sudo" "-E")
-    fi
-
-    if [ "${cbuild}" = "x86_64-pc-linux-gnu" ] && [ "${cross_chost}" = "aarch64-cros-linux-gnu" ]; then
-        echo "Building Rust for arm64"
-        # If no aarch64 folder exists, try to remove any existing Rust packages.
-        [ ! -d /usr/lib/rustlib/aarch64-unknown-linux-gnu ] && ("${sudo[@]}" emerge --unmerge dev-lang/rust || true)
-        "${sudo[@]}" emerge "${emerge_flags[@]}" dev-lang/rust
-    fi
-    if [ "${cbuild}" = "x86_64-pc-linux-gnu" ] && [ "${cross_chost}" = "riscv64-cros-linux-gnu" ]; then
-        echo "Building Rust for riscv64"
-        # If no riscv64 folder exists, try to remove any existing Rust packages.
-        [ ! -d /usr/lib/rustlib/riscv64-unknown-linux-gnu ] && ("${sudo[@]}" emerge --unmerge dev-lang/rust || true)
-        "${sudo[@]}" emerge "${emerge_flags[@]}" dev-lang/rust
-    fi
 }
 
 # Update to the latest binutils profile for a given CHOST if required

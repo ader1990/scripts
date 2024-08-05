@@ -73,6 +73,12 @@ case "${FLAGS_target}" in
         BOARD_GRUB=1
         SBAT_ARG=( --sbat "${BOARD_ROOT}/usr/share/grub/sbat.csv" )
         ;;
+    riscv64-efi)
+        CORE_MODULES+=( serial linux efi_gop efinet pgp http tftp tpm )
+        CORE_NAME="core.efi"
+        BOARD_GRUB=1
+        SBAT_ARG=( --sbat "${BOARD_ROOT}/usr/share/grub/sbat.csv" )
+        ;;
     *)
         die_notrace "Unknown GRUB target ${FLAGS_target}"
         ;;
@@ -257,6 +263,18 @@ case "${FLAGS_target}" in
         if [[ -n "${FLAGS_copy_efi_grub}" ]]; then
             # copying from vfat so ignore permissions
             cp --no-preserve=mode "${ESP_DIR}/EFI/boot/bootaa64.efi" \
+                "${FLAGS_copy_efi_grub}"
+        fi
+        ;;
+    riscv64-efi)
+        info "Installing default riscv64 UEFI bootloader. ${ESP_DIR}"
+        sudo mkdir -p "${ESP_DIR}/EFI/boot"
+        #FIXME(andrejro): shim not ported to aarch64
+        sudo mv "${ESP_DIR}/${GRUB_DIR}/${CORE_NAME}" \
+            "${ESP_DIR}/EFI/boot/grubriscv64.efi"
+        if [[ -n "${FLAGS_copy_efi_grub}" ]]; then
+            # copying from vfat so ignore permissions
+            cp --no-preserve=mode "${ESP_DIR}/EFI/boot/grubriscv64.efi" \
                 "${FLAGS_copy_efi_grub}"
         fi
         ;;
