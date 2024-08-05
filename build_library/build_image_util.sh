@@ -140,6 +140,8 @@ generate_update() {
 run_ldconfig() {
   local root_fs_dir=$1
   case ${ARCH} in
+  riscv)
+    sudo qemu-riscv64 "${root_fs_dir}"/usr/sbin/ldconfig -r "${root_fs_dir}";;
   arm64)
     sudo qemu-aarch64 "${root_fs_dir}"/usr/sbin/ldconfig -r "${root_fs_dir}";;
   x86|amd64)
@@ -152,6 +154,8 @@ run_ldconfig() {
 run_localedef() {
   local root_fs_dir="$1" loader=()
   case ${ARCH} in
+  riscv)
+    loader=( qemu-riscv64 -L "${root_fs_dir}" );;
   arm64)
     loader=( qemu-aarch64 -L "${root_fs_dir}" );;
   amd64)
@@ -628,6 +632,7 @@ finish_image() {
   case "${FLAGS_board}" in
     amd64-usr) verity_offset=64 ;;
     arm64-usr) verity_offset=512 ;;
+    riscv-usr) verity_offset=512 ;;
     *) disable_read_write=${FLAGS_FALSE} ;;
   esac
 
@@ -829,9 +834,9 @@ EOF
   if [[ ${COREOS_OFFICIAL:-0} -ne 1 ]]; then
       sudo sbsign --key /usr/share/sb_keys/shim.key \
 	   --cert /usr/share/sb_keys/shim.pem \
-	   "${root_fs_dir}/boot/flatcar/vmlinuz-a"
+	   "${root_fs_dir}/boot/flatcar/vmlinuz-a" || true
       sudo mv "${root_fs_dir}/boot/flatcar/vmlinuz-a.signed" \
-	   "${root_fs_dir}/boot/flatcar/vmlinuz-a"
+	   "${root_fs_dir}/boot/flatcar/vmlinuz-a" || true
   fi
 
   if [[ -n "${image_kernel}" ]]; then
@@ -858,6 +863,9 @@ EOF
     local target_list="i386-pc x86_64-efi x86_64-xen"
     if [[ ${BOARD} == "arm64-usr" ]]; then
       target_list="arm64-efi"
+    fi
+    if [[ ${BOARD} == "riscv-usr" ]]; then
+      target_list="riscv64-efi"
     fi
     local grub_args=()
     if [[ ${disable_read_write} -eq ${FLAGS_TRUE} ]]; then
