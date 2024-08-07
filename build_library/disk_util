@@ -373,7 +373,9 @@ def FormatBtrfs(part, device):
     btrfs_mount = tempfile.mkdtemp()
     Sudo(['mount', '-t', 'btrfs', device, btrfs_mount])
     try:
+      LogBtrfsUsage(btrfs_mount, 'before compression')
       Sudo(['btrfs', 'property', 'set', btrfs_mount, 'compression', part['fs_compression']])
+      LogBtrfsUsage(btrfs_mount, 'after compression')
     finally:
       Sudo(['umount', btrfs_mount])
       os.rmdir(btrfs_mount)
@@ -382,11 +384,13 @@ def FormatBtrfs(part, device):
     subvol_path = '%s/%s' % (btrfs_mount, part['fs_subvolume'])
     Sudo(['mount', '-t', 'btrfs', device, btrfs_mount])
     try:
+      LogBtrfsUsage(btrfs_mount, 'before fs_subvolume')
       Sudo(['btrfs', 'subvolume', 'create', subvol_path])
       if part.get('fs_compression', None):
         Sudo(['btrfs', 'property', 'set', subvol_path, 'compression', part['fs_compression']])
       subvol_id = BtrfsSubvolId(subvol_path)
       Sudo(['btrfs', 'subvolume', 'set-default', subvol_id, btrfs_mount])
+      LogBtrfsUsage(btrfs_mount, 'after fs_subvolume')
     finally:
       Sudo(['umount', btrfs_mount])
       os.rmdir(btrfs_mount)
@@ -526,7 +530,9 @@ def ResizeBtrfs(part, device):
   btrfs_mount = tempfile.mkdtemp()
   Sudo(['mount', '-t', 'btrfs', device, btrfs_mount])
   try:
+    LogBtrfsUsage(btrfs_mount, 'before resize')
     Sudo(['btrfs', 'filesystem', 'resize', part['fs_bytes'], btrfs_mount])
+    LogBtrfsUsage(btrfs_mount, 'after resize')
   finally:
     Sudo(['umount', btrfs_mount])
     os.rmdir(btrfs_mount)
@@ -643,6 +649,7 @@ def Umount(options):
   Args:
     options: Flags passed to the script
   """
+  LogBtrfsUsage(options.mount_dir, 'before umount')
   Sudo(['umount', '--recursive', '--detach-loop', options.mount_dir])
 
 
@@ -660,8 +667,10 @@ def ReadWriteSubvol(options, partition, disable_rw):
   with PartitionLoop(options, partition) as loop_dev:
     btrfs_mount = tempfile.mkdtemp()
     Sudo(['mount', '-t', 'btrfs', loop_dev, btrfs_mount])
+    LogBtrfsUsage(btrfs_mount, 'before ReadWriteSubvol')
     try:
       Sudo(['btrfs', 'property', 'set', '-ts', btrfs_mount, 'ro', 'true' if disable_rw else 'false'])
+      LogBtrfsUsage(btrfs_mount, 'after ReadWriteSubvol')
     finally:
       Sudo(['umount', btrfs_mount])
       os.rmdir(btrfs_mount)
@@ -761,13 +770,64 @@ def Tune(options):
     action_done = True
     if part.get('fs_type', None) == 'btrfs':
       with PartitionLoop(options, part) as loop_dev:
+        LogBtrfsUsage(part, 'before btrfstune')
         Sudo(['btrfstune', '-m', loop_dev])
+        LogBtrfsUsage(part, 'after btrfstune')
     else:
       raise Exception("Partition %s is not btrfs" % options.partition)
 
   if not action_done:
     raise Exception("No options specified!")
 
+def SudoOutputToConsole(cmd):
+  print(SudoOutput(cmd).decode())
+
+def LogBtrfsUsage(mount_point, section=None):
+  print('Btrfs usage for mount point `%s` %s' % (mount_point, section))
+  try:
+      SudoOutputToConsole(['btrfs', 'fi', 'usage', mount_point])
+  except Exception as ex:
+      print('Btrfs usage could not be retrieved for mount point `%s` %s' % (mount_point, section))
+      print(ex)
+
+  try:
+      pass
+      #Sudo(['btrfs', 'balance', 'start', '-dusage=100', '-musage=100', mount_point])
+  except Exception as ex:
+      print('Btrfs could not be balanced for mount point `%s` %s' % (mount_point, section))
+      print(ex)
+  
+  try:
+      pass
+      # Sudo(['btrfs', 'filesystem', 'resize', 'max', mount_point])
+  except Exception as ex:
+      print('Btrfs could not be resized for mount point `%s` %s' % (mount_point, section))
+      print(ex)
+
+  try:
+      SudoOutputToConsole(['btrfs', 'fi', 'usage', mount_point])
+  except Exception as ex:
+      print('Btrfs usage could not be retrieved for mount point `%s` %s' % (mount_point, section))
+      print(ex)
+
+def BtrfsMagic(options):
+
+    LogBtrfsUsage(options.disk_image, 'before BtrfsMagic')
+    try:
+        #Sudo(['btrfs', 'balance', 'start', '-dusage=0', '-musage=0', options.disk_image])
+        #LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after musage 0')
+        #Sudo(['btrfs', 'fi', 'defrag', '-r', '-v', options.disk_image])
+        #LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after defrag')
+        Sudo(['btrfs', 'fi', 'resize', '-500m', options.disk_image])
+        LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after -resize')
+        Sudo(['btrfs', 'fi', 'resize', '+500m', options.disk_image])
+        LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after +resize')
+        #Sudo(['btrfs', 'balance', 'start', '-dusage=100', '-musage=100', options.disk_image])
+        #LogBtrfsUsage(options.disk_image, 'before BtrfsMagic')
+    except Exception as ex:
+        print('Btrfs could not be balanced for mount point `%s` %s' % (options.disk_image, 'before BtrfsMagic'))
+        print(ex)
+    LogBtrfsUsage(options.disk_image, 'after BtrfsMagic')
 
 def Verity(options):
   """Hash verity protected filesystems.
@@ -1118,6 +1178,10 @@ def main(argv):
 
   a = actions.add_parser('parseonly', help='validate config')
   a.set_defaults(func=DoParseOnly)
+
+  a = actions.add_parser('btrfsmagic', help='btrfs checks')
+  a.add_argument('disk_image', help='path to disk image file')
+  a.set_defaults(func=BtrfsMagic)
 
   options = parser.parse_args(argv[1:])
   options.func(options)

@@ -589,6 +589,10 @@ start_image() {
   # First thing first, install baselayout to create a working filesystem.
   emerge_to_image "${root_fs_dir}" --nodeps --oneshot sys-apps/baselayout
 
+
+    "${BUILD_LIBRARY_DIR}/disk_util" --disk_layout="${disk_layout}" btrfsmagic \
+        "${root_fs_dir}/usr"
+
   # FIXME(marineam): Work around glibc setting EROOT=$ROOT
   # https://bugs.gentoo.org/show_bug.cgi?id=473728#c12
   sudo mkdir -p "${root_fs_dir}/etc/ld.so.conf.d"
@@ -799,6 +803,8 @@ EOF
     sudo rm "${root_fs_dir}/etc/resolv.conf"
   fi
 
+    "${BUILD_LIBRARY_DIR}/disk_util" --disk_layout="${disk_layout}" btrfsmagic \
+        "${root_fs_dir}/usr"
   # Zero all fs free space to make it more compressible so auto-update
   # payloads become smaller, not fatal since it won't work on linux < 3.2
   sudo fstrim "${root_fs_dir}" || true
@@ -806,6 +812,8 @@ EOF
     sudo fstrim "${root_fs_dir}/usr" || true
   fi
 
+    "${BUILD_LIBRARY_DIR}/disk_util" --disk_layout="${disk_layout}" btrfsmagic \
+        "${root_fs_dir}/usr"
   # Make the filesystem un-mountable as read-write and setup verity.
   if [[ ${disable_read_write} -eq ${FLAGS_TRUE} ]]; then
     # Unmount /usr partition
