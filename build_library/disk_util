@@ -818,14 +818,16 @@ def BtrfsMagic(options):
         #LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after musage 0')
         #Sudo(['btrfs', 'fi', 'defrag', '-r', '-v', options.disk_image])
         #LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after defrag')
-        Sudo(['btrfs', 'fi', 'resize', '-500m', options.disk_image])
-        LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after -resize')
+        try:
+            Sudo(['btrfs', 'fi', 'resize', '-500m', options.disk_image])
+        finally:
+            LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after -resize')
         Sudo(['btrfs', 'fi', 'resize', '+500m', options.disk_image])
         LogBtrfsUsage(options.disk_image, 'before BtrfsMagic: after +resize')
         #Sudo(['btrfs', 'balance', 'start', '-dusage=100', '-musage=100', options.disk_image])
         #LogBtrfsUsage(options.disk_image, 'before BtrfsMagic')
     except Exception as ex:
-        print('Btrfs could not be balanced for mount point `%s` %s' % (options.disk_image, 'before BtrfsMagic'))
+        print('Btrfs could not be modified for mount point `%s` %s' % (options.disk_image, 'error BtrfsMagic'))
         print(ex)
     LogBtrfsUsage(options.disk_image, 'after BtrfsMagic')
 
