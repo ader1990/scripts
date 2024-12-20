@@ -11,7 +11,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm64"
 else
 	EGIT_COMMIT="f3aaab923de5075524780716635f25564b5e6934" # flatcar-master
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 fi
 
 DESCRIPTION="coreos-cloudinit"

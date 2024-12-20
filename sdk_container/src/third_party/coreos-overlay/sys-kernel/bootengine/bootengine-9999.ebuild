@@ -8,7 +8,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
 	EGIT_COMMIT="c9de038b73621165f81573c77ca0d0c2f9e886db" # flatcar-master
-	KEYWORDS="amd64 arm arm64 x86"
+	KEYWORDS="amd64 arm64 riscv"
 fi
 
 inherit git-r3
