@@ -8,7 +8,7 @@ HOMEPAGE="https://github.com/flatcar/baselayout"
 
 LICENSE="metapackage"
 SLOT="0"
-KEYWORDS="amd64 arm arm64 x86"
+KEYWORDS="amd64 arm64 riscv"
 
 RDEPEND=">=sys-apps/baselayout-3.6
 	>=sys-libs/pam-1.4"

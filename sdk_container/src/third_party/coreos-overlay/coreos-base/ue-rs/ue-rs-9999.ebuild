@@ -11,7 +11,7 @@ if [[ ${PV} == 9999 ]]; then
 	CRATES=""
 else
 	EGIT_COMMIT="78381b1b1995f5cebfd2a36a70d616ce6ba538a4" # trunk
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 	SRC_URI="https://github.com/flatcar/${PN}/archive/${EGIT_COMMIT}.tar.gz -> flatcar-${PN}-${EGIT_COMMIT}.tar.gz"
 	S="${WORKDIR}/${PN}-${EGIT_COMMIT}"
 

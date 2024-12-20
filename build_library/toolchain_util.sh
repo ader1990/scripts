@@ -16,6 +16,7 @@ TOOLCHAIN_PKGS=(
 declare -A CROSS_PROFILES
 CROSS_PROFILES["x86_64-cros-linux-gnu"]="coreos-overlay:coreos/amd64/generic"
 CROSS_PROFILES["aarch64-cros-linux-gnu"]="coreos-overlay:coreos/arm64/generic"
+CROSS_PROFILES["riscv64-cros-linux-gnu"]="coreos-overlay:coreos/riscv/generic"
 
 # Map board names to CHOSTs and portage profiles. This is the
 # definitive list, there is assorted code new and old that either
@@ -26,6 +27,9 @@ BOARD_PROFILES["amd64-usr"]="coreos-overlay:coreos/amd64/generic"
 
 BOARD_CHOSTS["arm64-usr"]="aarch64-cros-linux-gnu"
 BOARD_PROFILES["arm64-usr"]="coreos-overlay:coreos/arm64/generic"
+
+BOARD_CHOSTS["riscv-usr"]="riscv64-cros-linux-gnu"
+BOARD_PROFILES["riscv-usr"]="coreos-overlay:coreos/riscv/generic"
 
 BOARD_NAMES=( "${!BOARD_CHOSTS[@]}" )
 
@@ -57,6 +61,7 @@ get_portage_arch() {
         s390*)      echo s390;;
         sh*)        echo sh;;
         x86_64*)    echo amd64;;
+        risc*)      echo riscv;;
         *)          die "Unknown CHOST '$1'";;
     esac
 }
@@ -79,6 +84,7 @@ get_kernel_arch() {
         s390*)      echo s390;;
         sh*)        echo sh;;
         x86_64*)    echo x86;;
+        risc*)     echo riscv;;
         *)          die "Unknown CHOST '$1'";;
     esac
 }
@@ -474,7 +480,8 @@ install_cross_rust() {
 
     [[
        -d /usr/lib/rustlib/x86_64-unknown-linux-gnu &&
-       -d /usr/lib/rustlib/aarch64-unknown-linux-gnu
+       -d /usr/lib/rustlib/aarch64-unknown-linux-gnu &&
+       -d /usr/lib/rustlib/riscv64-unknown-linux-gnu
     ]] && return
 
     echo "Rebuilding dev-lang/rust with updated cross targets."

@@ -80,12 +80,13 @@ $docker build -t "${sdk_build_image}" \
     -f sdk_lib/Dockerfile.sdk-update \
     .
 
-for a in all arm64 amd64; do
+for a in all arm64 amd64 riscv; do
     yell "Creating '$a' arch SDK image"
     rmarch=""; rmcross=""
     case $a in
         arm64) rmarch="amd64-usr"; rmcross="x86_64-cros-linux-gnu";;
         amd64) rmarch="arm64-usr"; rmcross="aarch64-cros-linux-gnu";;
+        riscv) rmarch="riscv-usr"; rmcross="riscv64-cros-linux-gnu";;
     esac
     $docker build -t "$sdk_container_common_registry/flatcar-sdk-${a}:${docker_vernum}" \
                  --build-arg VERSION="${docker_vernum}" \

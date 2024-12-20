@@ -12,7 +12,7 @@ SRC_URI+=" https://dev.gentoo.org/~williamh/dist/${P}-deps.tar.xz"
 LICENSE="Apache-2.0"
 SLOT="0"
 # Flatcar: keyword for arm64 and amd64
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 riscv"
 
 src_compile() {
 	# Flatcar: add ldflags to set version

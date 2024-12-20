@@ -11,7 +11,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64  ~arm64"
 else
 	EGIT_COMMIT="2262401fe363cfdcc4c6f02144622466d506de43"
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 fi
 
 DESCRIPTION="nova-agent-watcher"

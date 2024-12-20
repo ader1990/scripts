@@ -7,6 +7,9 @@ ARG OFFICIAL=0
 # mark build as official where appropriate
 RUN echo "export COREOS_OFFICIAL=$OFFICIAL" > /mnt/host/source/.env
 
+RUN /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --binhost="${BINHOST}/riscv-usr"
+RUN /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --regen_configs
+
 RUN /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --binhost="${BINHOST}/arm64-usr"
 RUN /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --regen_configs
 RUN /home/sdk/sdk_entry.sh ./build_packages --board="arm64-usr" --only_resolve_circular_deps

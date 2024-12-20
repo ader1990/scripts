@@ -11,7 +11,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm64"
 else
 	EGIT_COMMIT="a204f429f13194ae379be9401d49e5241439660b" # v2.20.0
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 fi
 
 DESCRIPTION="Pre-boot provisioning utility"

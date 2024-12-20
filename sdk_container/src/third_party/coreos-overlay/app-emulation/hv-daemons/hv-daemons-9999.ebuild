@@ -6,7 +6,7 @@ EAPI=8
 inherit coreos-kernel savedconfig systemd
 
 DESCRIPTION="HyperV guest support daemons."
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 riscv"
 
 if [[ "${PV}" == 9999 ]]; then
     KEYWORDS="~amd64 ~arm64"
