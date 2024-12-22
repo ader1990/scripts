@@ -76,6 +76,8 @@ RDEPEND="${RDEPEND}
 	amd64? (
 		app-emulation/xenserver-pv-version
 		app-emulation/xenstore
+		sys-apps/kexec-tools
+		sys-apps/azure-vm-utils
 	)"
 
 # sys-devel/gettext: it embeds 'envsubst' binary which is useful for simple file templating.
@@ -153,7 +155,6 @@ RDEPEND="${RDEPEND}
 	sec-policy/selinux-unconfined
 	sys-apps/acl
 	sys-apps/attr
-	sys-apps/azure-vm-utils
 	sys-apps/coreutils
 	sys-apps/checkpolicy
 	sys-apps/dbus
@@ -164,7 +165,6 @@ RDEPEND="${RDEPEND}
 	sys-apps/grep
 	sys-apps/ignition
 	sys-apps/iproute2
-	sys-apps/kexec-tools
 	sys-apps/keyutils
 	sys-apps/less
 	sys-apps/lshw
