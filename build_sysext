@@ -121,6 +121,7 @@ source "${BUILD_LIBRARY_DIR}/reports_util.sh" || exit 1
 declare -A SYSEXT_ARCHES
 SYSEXT_ARCHES['amd64-usr']='x86-64'
 SYSEXT_ARCHES['arm64-usr']='arm64'
+SYSEXT_ARCHES['riscv-usr']='riscv'
 
 declare -r SYSEXT_ARCHES
 
