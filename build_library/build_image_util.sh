@@ -598,6 +598,7 @@ finish_image() {
   case "${FLAGS_board}" in
     amd64-usr) verity_offset=64 ;;
     arm64-usr) verity_offset=512 ;;
+    riscv-usr) verity_offset=512 ;;
     *) disable_read_write=${FLAGS_FALSE} ;;
   esac
 
