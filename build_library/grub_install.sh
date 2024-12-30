@@ -41,7 +41,7 @@ switch_to_strict_mode
 GRUB_DIR="flatcar/grub/${FLAGS_target}"
 
 # Modules required to boot a standard CoreOS configuration
-CORE_MODULES=( normal search test fat part_gpt search_fs_uuid xzio terminal configfile memdisk tar echo read btrfs )
+CORE_MODULES=( normal search test fat part_gpt search_fs_uuid xzio search_part_label terminal gptprio configfile memdisk tar echo read btrf )
 
 SBAT_ARG=()
 
