@@ -41,7 +41,7 @@ switch_to_strict_mode
 GRUB_DIR="flatcar/grub/${FLAGS_target}"
 
 # Modules required to boot a standard CoreOS configuration
-CORE_MODULES=( normal search test fat part_gpt search_fs_uuid xzio search_part_label terminal gptprio configfile memdisk tar echo read btrfs )
+CORE_MODULES=( normal search test fat part_gpt search_fs_uuid xzio terminal configfile memdisk tar echo read btrfs )
 
 SBAT_ARG=()
 
@@ -52,10 +52,13 @@ case "${FLAGS_target}" in
     arm64-efi)
         EFI_ARCH="aa64"
         ;;
+    riscv64-efi)
+        EFI_ARCH="riscv64"
+        ;;
 esac
 
 case "${FLAGS_target}" in
-    x86_64-efi|arm64-efi)
+    x86_64-efi|arm64-efi|riscv64-efi)
         GRUB_IMAGE="EFI/boot/grub${EFI_ARCH}.efi"
         CORE_MODULES+=( serial linux efi_gop efinet pgp http tftp tpm )
         SBAT_ARG=( --sbat "${BOARD_ROOT}/usr/share/grub/sbat.csv" )
