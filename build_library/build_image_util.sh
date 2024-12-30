@@ -598,7 +598,6 @@ finish_image() {
   case "${FLAGS_board}" in
     amd64-usr) verity_offset=64 ;;
     arm64-usr) verity_offset=512 ;;
-    riscv-usr) verity_offset=512 ;;
     *) disable_read_write=${FLAGS_FALSE} ;;
   esac
 
@@ -661,7 +660,7 @@ finish_image() {
 
   # Only configure bootloaders if there is a boot partition
   if mountpoint -q "${root_fs_dir}"/boot; then
-    install_grub=0
+    install_grub=1
     ${BUILD_LIBRARY_DIR}/configure_bootloaders.sh \
       --boot_dir="${root_fs_dir}"/usr/boot
 
