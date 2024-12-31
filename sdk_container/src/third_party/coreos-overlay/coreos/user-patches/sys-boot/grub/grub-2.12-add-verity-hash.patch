@@ -81,7 +81,7 @@ diff -Naur a/include/grub/verity-hash.h b/include/grub/verity-hash.h
 +#elif defined(__i386__) || defined(__amd64__)
 +# define VERITY_HASH_OFFSET 0x40
 +#else
-+# define VERITY_HASH_OFFSET 160
++# define VERITY_HASH_OFFSET 352
 +#endif
 +
 +

@@ -598,7 +598,7 @@ finish_image() {
   case "${FLAGS_board}" in
     amd64-usr) verity_offset=64 ;;
     arm64-usr) verity_offset=512 ;;
-    riscv-usr) verity_offset=160 ;;
+    riscv-usr) verity_offset=352 ;;
     *) disable_read_write=${FLAGS_FALSE} ;;
   esac
 
@@ -794,6 +794,7 @@ EOF
     printf %s "$(cat ${BUILD_DIR}/${image_name%.bin}_verity.txt)" | \
         sudo dd of="${root_fs_dir}/boot/flatcar/vmlinuz-a" conv=notrunc \
         seek=${verity_offset} count=64 bs=1 status=none
+    echo "<<<<>>>>>VERITY DONE on ${root_fs_dir}/boot/flatcar/vmlinuz-a"
   fi
 
   # Sign the kernel after /usr is in a consistent state and verity is
