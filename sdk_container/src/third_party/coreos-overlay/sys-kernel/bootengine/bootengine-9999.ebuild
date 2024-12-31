@@ -7,7 +7,7 @@ EGIT_REPO_URI="https://github.com/ader1990/bootengine.git"
 if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 else
-	EGIT_COMMIT="7710045bc3e87586ec1936c6cdbfa4a7d930d59f"
+	EGIT_COMMIT="daa201832bbd05a10c536eb2c9b5c332a2c650f2"
 	EGIT_BRANCH="ader1990/remove-hyperv-modules-for-riscv"
 	KEYWORDS="amd64 arm64 riscv"
 fi
