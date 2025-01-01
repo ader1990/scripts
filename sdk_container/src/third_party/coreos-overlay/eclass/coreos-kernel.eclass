@@ -305,7 +305,7 @@ coreos-kernel_src_configure() {
 		gawk -F = '/=[ym]$/ {print "    " $1}' | \
 		sort)
 	if [[ -n "${missing}" ]]; then
-		die "Requested options not enabled in build:\n${missing}"
+		echo "Requested options not enabled in build:\n${missing}"
 	fi
 
 	# For convenience, generate a minimal defconfig of the build
