@@ -11,7 +11,7 @@ if [[ "${PV}" == 9999 ]]; then
 	KEYWORDS="~amd64 ~arm64"
 else
 	EGIT_COMMIT="446f13594465503a3fdfc9106fd8a0c3123249c2" # main
-	KEYWORDS="amd64 arm64"
+	KEYWORDS="amd64 arm64 riscv"
 fi
 
 DESCRIPTION="CoreUpdate Management CLI"

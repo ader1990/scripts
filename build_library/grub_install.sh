@@ -52,10 +52,13 @@ case "${FLAGS_target}" in
     arm64-efi)
         EFI_ARCH="aa64"
         ;;
+    riscv64-efi)
+        EFI_ARCH="riscv64"
+        ;;
 esac
 
 case "${FLAGS_target}" in
-    x86_64-efi|arm64-efi)
+    x86_64-efi|arm64-efi|riscv64-efi)
         GRUB_IMAGE="EFI/boot/grub${EFI_ARCH}.efi"
         CORE_MODULES+=( serial linux efi_gop efinet pgp http tftp tpm )
         SBAT_ARG=( --sbat "${BOARD_ROOT}/usr/share/grub/sbat.csv" )

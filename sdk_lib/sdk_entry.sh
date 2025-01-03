@@ -29,7 +29,7 @@ sed -i -r '/^masters =/s/\bcoreos(\s|$)/coreos-overlay\1/g' /usr/local/portage/c
     fi
 
     if [ "${version}" != "${DISTRIB_RELEASE}" ] ; then
-        for target in amd64-usr arm64-usr; do
+        for target in amd64-usr arm64-usr riscv-usr; do
             if [ ! -d "/build/$target" ] ; then
                 continue
             fi
@@ -57,7 +57,7 @@ sed -i -r '/^masters =/s/\bcoreos(\s|$)/coreos-overlay\1/g' /usr/local/portage/c
 #    sudo su - sdk -c "<command>".
 #   Then, we need to preserve whitespaces in arguments of commands
 #    passed to the container, e.g.
-#    ./update_chroot --toolchain_boards="amd64-usr arm64-usr".
+#    ./update_chroot --toolchain_boards="amd64-usr arm64-usr riscv-usr".
 #    This is done via a separate ".cmd" file since we have used up
 #    our quotes for su -c "<cmd>" already.
 if [ $# -gt 0 ] ; then

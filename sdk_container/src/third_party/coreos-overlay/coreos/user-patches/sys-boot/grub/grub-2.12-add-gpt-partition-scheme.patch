@@ -253,7 +253,7 @@ diff -Naur a/grub-core/commands/gptprio.c b/grub-core/commands/gptprio.c
 +  if (!*part_name)
 +    goto done;
 +
-+  *part_guid = grub_gpt_guid_to_str (&part_found->guid);
++  *part_guid = grub_gpt_guid_to_str ((grub_packed_guid_t *)&part_found->guid);
 +  if (!*part_guid)
 +    goto done;
 +
@@ -695,7 +695,7 @@ diff -Naur a/grub-core/lib/gpt.c b/grub-core/lib/gpt.c
 +  if (grub_gpt_device_partentry (device, &entry))
 +    return grub_errno;
 +
-+  *uuid = grub_gpt_guid_to_str (&entry.guid);
++  *uuid = grub_gpt_guid_to_str ((grub_packed_guid_t *)&entry.guid);
 +  if (!*uuid)
 +    return grub_errno;
 +
