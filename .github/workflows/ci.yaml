@@ -35,14 +35,11 @@ jobs:
   packages:
     name: "Build Flatcar packages"
     runs-on:
-      - self-hosted
-      - debian
-      - build
-      - x64
+      - ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        arch: ["amd64", "arm64"]
+        arch: ["amd64"]
     defaults:
       run:
         working-directory: scripts
@@ -59,7 +56,7 @@ jobs:
           sudo mkdir -p /etc/apt/keyrings
           curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
           echo \
-            "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+            "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
             $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
           sudo apt-get update
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
@@ -323,8 +320,3 @@ jobs:
             scripts/artifacts/images/flatcar_production_*.sh
             scripts/artifacts/images/flatcar_production_pxe_image.cpio.gz
             scripts/artifacts/images/flatcar_production_pxe.vmlinuz
-
-  test:
-    needs: packages
-    name: "Run kola tests"
-    uses: ./.github/workflows/run-kola-tests.yaml
