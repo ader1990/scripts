@@ -139,31 +139,6 @@ jobs:
             -C "${sdk_image}" \
             ./build_packages --board="${arch}-usr"
 
-          # Create binpkgs tarball for archiving as artifact later
-          ./run_sdk_container -n "${container_name}" \
-              tar -C "/build/${arch}-usr/var/lib/portage/pkgs/" \
-                -cvf binpkgs.tar .
-
-      - name: Extract build logs
-        if: always() && !cancelled()
-        shell: bash
-        run: |
-          set -euo pipefail
-          set -x
-          # Copy logs
-          ./run_sdk_container -n "${container_name}" \
-              tar -cJf ebuild_logs.tar.xz /build/${arch}-usr/var/log/portage \
-              /build/${arch}-usr/var/tmp/portage
-
-      - name: Upload build logs
-        if: always() && !cancelled()
-        uses: actions/upload-artifact@v4
-        with:
-          retention-days: 7
-          name: ${{ matrix.arch }}-build-logs
-          path: |
-            scripts/ebuild_logs.tar.xz
-
       - name: Build image
         shell: bash
         run: |
@@ -182,7 +157,7 @@ jobs:
           ./run_sdk_container -n "${container_name}" \
                   ./build_image --board="${arch}-usr" --group="${channel}" \
                                 --output_root="${CI_CONTAINER_ARTIFACT_ROOT}" \
-                                prodtar container sysext
+                                --image_compression_formats=none
 
       - name: Build VM image(s)
         shell: bash
