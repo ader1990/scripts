@@ -221,6 +221,7 @@ jobs:
           retention-days: 7
           name: ${{ matrix.arch }}-generic-image
           path: |
+            scripts/artifacts/images/*.img
             scripts/artifacts/images/flatcar_production_*_efi_*.qcow2
             scripts/artifacts/images/flatcar_production_qemu.sh
 
