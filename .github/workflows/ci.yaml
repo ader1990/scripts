@@ -1,4 +1,4 @@
-name: "Run build"
+name: "Run minimal build"
 on:
   workflow_dispatch:
     inputs:
