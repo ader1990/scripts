@@ -50,8 +50,6 @@ jobs:
       - ubuntu-latest
     strategy:
       fail-fast: true
-      matrix:
-        arch: [ "amd64" ]
     defaults:
       run:
         working-directory: scripts
@@ -102,7 +100,7 @@ jobs:
       - name: Set environment
         shell: bash
         run: |
-          arch="${{ matrix.arch }}"
+          arch="${{ inputs.architecture }}"
           echo "arch=${arch}" >> $GITHUB_ENV
 
           IMAGE_FORMATS="qemu_uefi"
@@ -231,7 +229,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           retention-days: 7
-          name: ${{ matrix.arch }}-generic-image
+          name: ${{ inputs.architecture }}-generic-image
           path: |
             scripts/artifacts/images/*.img
             scripts/artifacts/images/flatcar_production_*_efi_*.qcow2
