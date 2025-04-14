@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        arch: [ "${{ inputs.architecture }}" ]
+        arch: [ "amd64" ]
     defaults:
       run:
         working-directory: scripts
