@@ -107,6 +107,7 @@ RDEPEND="${RDEPEND}
 	app-editors/vim
 	app-emulation/qemu-guest-agent
 	app-containers/cri-tools
+	app-containers/snapd
 	app-misc/ca-certificates
 	app-misc/jq
 	app-misc/pax-utils

@@ -20,7 +20,6 @@ INSTALL_MASK="${INSTALL_MASK}
   /usr/share/gettext
   /usr/share/pkgconfig
   /usr/share/readline
-  /usr/src
 "
 
 # Remove files which depend on interpreters not present in boards.
