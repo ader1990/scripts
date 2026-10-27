@@ -1,0 +1,24 @@
+diff --git a/sdk_container/src/third_party/coreos-overlay/eclass/coreos-go-utils.eclass b/sdk_container/src/third_party/coreos-overlay/eclass/coreos-go-utils.eclass
+index b5d07016de..7e90b2b42a 100644
+--- a/sdk_container/src/third_party/coreos-overlay/eclass/coreos-go-utils.eclass
++++ b/sdk_container/src/third_party/coreos-overlay/eclass/coreos-go-utils.eclass
+@@ -27,6 +27,7 @@ go_arch() {
+ 		x64-*)	echo amd64;;
+ 		ppc64)
+ 			[[ "${endian}" = big ]] && echo ppc64 || echo ppc64le ;;
++		riscv*)	echo riscv64;;
+ 		*)	echo "${portage_arch}";;
+ 	esac
+ }
+diff --git a/sdk_container/src/third_party/coreos-overlay/eclass/coreos-kernel.eclass b/sdk_container/src/third_party/coreos-overlay/eclass/coreos-kernel.eclass
+index 0ea1ee111b..ac5bafa277 100644
+--- a/sdk_container/src/third_party/coreos-overlay/eclass/coreos-kernel.eclass
++++ b/sdk_container/src/third_party/coreos-overlay/eclass/coreos-kernel.eclass
+@@ -102,6 +102,7 @@ kernel_path() {
+ 	case "${kernel_arch}" in
+ 		arm64)	echo build/arch/arm64/boot/Image;;
+ 		x86)	echo build/arch/x86/boot/bzImage;;
++		riscv)	echo build/arch/riscv/boot/Image;;
+ 		*)		die "Unsupported kernel arch '${kernel_arch}'";;
+ 	esac
+ }
