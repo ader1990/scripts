@@ -8,7 +8,13 @@ USE="cros_host expat man -pam"
 FEATURES="-splitdebug"
 
 # Enable CPU architectures needed by Rust builds
-LLVM_TARGETS="X86 AArch64"
+LLVM_TARGETS="X86 AArch64 RISCV"
+
+# Both x86_64 and i386 targets are required for grub testing
+QEMU_SOFTMMU_TARGETS="x86_64 i386 aarch64 riscv64"
+
+# For cross build support.
+QEMU_USER_TARGETS="aarch64 riscv64"
 
 # add cros_host to bootstrapping USE flags so SDK / toolchains bootstrapping
 # will use vim's vimrc instead of baselayouts',

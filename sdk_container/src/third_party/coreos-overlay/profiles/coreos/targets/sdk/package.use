@@ -11,11 +11,11 @@ dev-lang/rust rustfmt
 app-crypt/gnupg smartcard usb
 
 # for qemu
-app-emulation/qemu -doc -jpeg -pin-upstream-blobs ncurses python static-user virtfs qemu_softmmu_targets_aarch64 qemu_softmmu_targets_x86_64 qemu_user_targets_aarch64 qemu_user_targets_x86_64
+app-emulation/qemu -doc -jpeg -pin-upstream-blobs ncurses python static-user virtfs qemu_softmmu_targets_aarch64 qemu_softmmu_targets_x86_64 qemu_softmmu_targets_riscv64 qemu_user_targets_aarch64 qemu_user_targets_x86_64 qemu_user_targets_riscv64
 dev-libs/glib static-libs
 dev-libs/libpcre2 static-libs
 sys-apps/attr static-libs
-sys-firmware/edk2-bin qemu_softmmu_targets_aarch64 qemu_softmmu_targets_x86_64
+sys-firmware/edk2-bin qemu_softmmu_targets_aarch64 qemu_softmmu_targets_x86_64 qemu_softmmu_targets_riscv64
 sys-libs/zlib static-libs
 virtual/zlib static-libs
 
