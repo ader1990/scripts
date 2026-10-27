@@ -254,6 +254,9 @@ get_default_vm_type() {
     arm64-usr)
         echo "qemu_uefi"
         ;;
+    riscv-usr)
+        echo "qemu_uefi"
+        ;;
     *)
         return 1
         ;;
@@ -458,8 +461,10 @@ write_vm_disk() {
           ln -fs "${target_basename}" "${qemu}"
           VM_GENERATED_FILES+=( "${qemu}" )
         fi
-        ln -fs "${target_basename}" "${qemu_uefi_secure}"
-        VM_GENERATED_FILES+=( "${qemu_uefi_secure}" )
+        if [ "${BOARD}" != riscv-usr ]; then
+            ln -fs "${target_basename}" "${qemu_uefi_secure}"
+            VM_GENERATED_FILES+=( "${qemu_uefi_secure}" )
+        fi
     fi
 
     # Add disk image to final file list if it isn't going to be bundled
@@ -577,6 +582,7 @@ _write_cpio_disk() {
     case $BOARD in
         amd64-usr) efi_file="grubx64.efi" ;;
         arm64-usr) efi_file="bootaa64.efi" ;;
+        riscv-usr) efi_file="bootriscv64.efi" ;;
     esac
 
     cp "${base_dir}/boot/EFI/boot/${efi_file}" "${dst_dir}/${grub_name}"
@@ -675,6 +681,10 @@ _write_qemu_uefi_conf() {
             cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_EFI.qcow2" "$(_dst_dir)/${flash_ro}"
             cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_VARS.qcow2" "$(_dst_dir)/${flash_rw}"
             ;;
+        riscv-usr)
+            cp "/usr/share/edk2/RiscVVirtQemu/RISCV_VIRT_CODE.fd" "$(_dst_dir)/${flash_ro}"
+            cp "/usr/share/edk2/RiscVVirtQemu/RISCV_VIRT_VARS.fd" "$(_dst_dir)/${flash_rw}"
+            ;;
     esac
 
     sed -e "s%^VM_PFLASH_RO=.*%VM_PFLASH_RO=\"\${SCRIPT_DIR}/${flash_ro}\"%" \
@@ -691,7 +701,9 @@ _write_qemu_uefi_conf() {
       if [ "${BOARD}" = amd64-usr ]; then
         VM_IMG_TYPE=qemu VM_DST_IMG="${qemu}" VM_NAME="${qemu_name}" _write_qemu_conf
       fi
-      VM_IMG_TYPE=qemu_uefi_secure VM_DST_IMG="${qemu_uefi_secure}" VM_NAME="${qemu_uefi_secure_name}" _write_qemu_uefi_secure_conf
+      if [ "${BOARD}" != riscv-usr ]; then
+        VM_IMG_TYPE=qemu_uefi_secure VM_DST_IMG="${qemu_uefi_secure}" VM_NAME="${qemu_uefi_secure_name}" _write_qemu_uefi_secure_conf
+      fi
     fi
 }
 
