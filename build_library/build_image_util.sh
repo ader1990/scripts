@@ -103,8 +103,13 @@ zip_update_tools() {
 }
 
 run_ldconfig() {
+  local root_fs_dir=$1
+  if [[ ${ARCH} == riscv ]]; then
+    sudo qemu-riscv64 "${root_fs_dir}"/usr/sbin/ldconfig -r "${root_fs_dir}"
+    return
+  fi
   # This wrapper is created by setup_board.
-  sudo "ldconfig-${BOARD}" -r "$1"
+  sudo "ldconfig-${BOARD}" -r "${root_fs_dir}"
 }
 
 run_localedef() {
@@ -116,6 +121,12 @@ run_localedef() {
   [[ -f "${i18n}/charmaps/UTF-8.gz" ]] || die
   [[ -f "${i18n}/locales/C" ]] || die
   sudo mkdir -p "${root_fs_dir}/usr/lib/locale"
+  if [[ ${ARCH} == riscv ]]; then
+    sudo I18NPATH="${i18n}" qemu-riscv64 -L "${root_fs_dir}" \
+        "${root_fs_dir}/usr/bin/localedef" \
+        --charmap=UTF-8 --inputfile=C C.UTF-8
+    return
+  fi
   sudo I18NPATH="${i18n}" "bwrap-${BOARD}" "${root_fs_dir}" /usr/bin/localedef \
       --charmap=UTF-8 --inputfile=C C.UTF-8
 }
@@ -559,6 +570,7 @@ finish_image() {
   case "${FLAGS_board}" in
     amd64-usr) verity_offset=64 ;;
     arm64-usr) verity_offset=512 ;;
+    riscv-usr) verity_offset=352 ;;
     *) disable_read_write=${FLAGS_FALSE} ;;
   esac
 
@@ -824,6 +836,9 @@ EOF
     local target_list="i386-pc x86_64-efi x86_64-xen"
     if [[ ${BOARD} == "arm64-usr" ]]; then
       target_list="arm64-efi"
+    fi
+    if [[ ${BOARD} == "riscv-usr" ]]; then
+      target_list="riscv64-efi"
     fi
     local grub_args=()
     if [[ ${disable_read_write} -eq ${FLAGS_TRUE} ]]; then
