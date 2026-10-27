@@ -102,6 +102,16 @@ zip_update_tools() {
     --arch "$(get_sdk_arch)" --output-dir "${BUILD_DIR}" --zip-name "${update_zip}"
 }
 
+run_ldconfig() {
+  local root_fs_dir=$1
+  if [[ ${ARCH} == riscv ]]; then
+    sudo qemu-riscv64 "${root_fs_dir}"/usr/sbin/ldconfig -r "${root_fs_dir}"
+    return
+  fi
+  # This wrapper is created by setup_board.
+  sudo "ldconfig-${BOARD}" -r "${root_fs_dir}"
+}
+
 run_localedef() {
   local root_fs_dir="$1"
   info "Generating C.UTF-8 locale..."
@@ -114,6 +124,14 @@ run_localedef() {
   # We could detect board endianness, but just assume little for now.
   sudo env I18NPATH="${i18n}" localedef --prefix="${root_fs_dir}" \
       --little-endian --charmap=UTF-8 --inputfile=C C.UTF-8
+  if [[ ${ARCH} == riscv ]]; then
+    sudo I18NPATH="${i18n}" qemu-riscv64 -L "${root_fs_dir}" \
+        "${root_fs_dir}/usr/bin/localedef" \
+        --charmap=UTF-8 --inputfile=C C.UTF-8
+    return
+  fi
+  sudo I18NPATH="${i18n}" "bwrap-${BOARD}" "${root_fs_dir}" /usr/bin/localedef \
+      --charmap=UTF-8 --inputfile=C C.UTF-8
 }
 
 # Basic command to emerge binary packages into the target image.
@@ -548,6 +566,7 @@ finish_image() {
   case "${FLAGS_board}" in
     amd64-usr) verity_offset=64 ;;
     arm64-usr) verity_offset=512 ;;
+    riscv-usr) verity_offset=352 ;;
     *) disable_read_write=${FLAGS_FALSE} ;;
   esac
 
@@ -813,6 +832,9 @@ EOF
     local target_list="i386-pc x86_64-efi x86_64-xen"
     if [[ ${BOARD} == "arm64-usr" ]]; then
       target_list="arm64-efi"
+    fi
+    if [[ ${BOARD} == "riscv-usr" ]]; then
+      target_list="riscv64-efi"
     fi
     local grub_args=()
     if [[ ${disable_read_write} -eq ${FLAGS_TRUE} ]]; then
