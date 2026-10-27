@@ -32,7 +32,7 @@ sed -i -r '/^masters =/s/\bcoreos(\s|$)/coreos-overlay\1/g' /usr/local/portage/c
     fi
 
     if [ "${version}" != "${DISTRIB_RELEASE}" ] ; then
-        for target in amd64-usr arm64-usr; do
+        for target in amd64-usr arm64-usr riscv-usr; do
             if [ ! -d "/build/$target" ] ; then
                 continue
             fi

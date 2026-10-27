@@ -12,7 +12,11 @@ case ${phase} in
 
     start)
         binhost=${1}; shift
-        if ! ( ./setup_board --board="arm64-usr" --binhost="${binhost}/arm64-usr" && \
+        if ! ( ./setup_board --board="riscv-usr" --binhost="${binhost}/riscv-usr" && \
+                   ./setup_board --board="riscv-usr" --regen_configs && \
+                   ./build_packages --board="riscv-usr" --only_resolve_circular_deps && \
+                   \
+                   ./setup_board --board="arm64-usr" --binhost="${binhost}/arm64-usr" && \
                    ./setup_board --board="arm64-usr" --regen_configs && \
                    ./build_packages --board="arm64-usr" --only_resolve_circular_deps && \
                    \
@@ -30,7 +34,7 @@ case ${phase} in
             logdir=${1}; shift
         fi
         if [[ -n ${logdir} ]]; then
-            for arch in amd64 arm64; do
+            for arch in amd64 arm64 riscv; do
                 cp -a "/build/${arch}-usr/var/log/portage" "${logdir}/${arch}-package-logs"
             done
         fi

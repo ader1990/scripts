@@ -14,7 +14,10 @@ RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
       /home/sdk/sdk_entry.sh ./update_chroot --setuponly
 RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
           crossdev --ex-gdb --init-target x86_64-cros-linux-gnu \
-      &&  crossdev --ex-gdb --init-target aarch64-cros-linux-gnu
+      &&  crossdev --ex-gdb --init-target aarch64-cros-linux-gnu \
+      &&  crossdev --ex-gdb --init-target riscv64-cros-linux-gnu
+RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
+      /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --regen_configs_only
 RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
       /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --regen_configs_only
 RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
@@ -23,8 +26,10 @@ RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
 # Now initialise the chroot and boards.
 # This should rebuild all updated packages.
 RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
-      /home/sdk/sdk_entry.sh ./update_chroot --toolchain_boards="amd64-usr arm64-usr"
+      /home/sdk/sdk_entry.sh ./update_chroot --toolchain_boards="amd64-usr arm64-usr riscv-usr"
 
+RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
+      /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --regen_configs
 RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
       /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --regen_configs
 RUN FEATURES="-ipc-sandbox -network-sandbox -pid-sandbox" \
