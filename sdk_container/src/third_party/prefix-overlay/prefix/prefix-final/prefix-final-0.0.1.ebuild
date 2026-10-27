@@ -7,7 +7,7 @@ DESCRIPTION="Prefix final layer base dependencies"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="amd64 arm64"
+KEYWORDS="amd64 arm64 riscv"
 
 # These should be the absolute minimum runtime dependencies of the "final" prefix.
 # "Staging" has @system so it is pretty heavyweight.
