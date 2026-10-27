@@ -1,0 +1,63 @@
+diff --git a/sdk_lib/Dockerfile.sdk-build b/sdk_lib/Dockerfile.sdk-build
+index 868ba436cd..b35ff2847a 100644
+--- a/sdk_lib/Dockerfile.sdk-build
++++ b/sdk_lib/Dockerfile.sdk-build
+@@ -7,6 +7,9 @@ ARG OFFICIAL=0
+ # mark build as official where appropriate
+ RUN echo "export COREOS_OFFICIAL=$OFFICIAL" > /mnt/host/source/.env
+ 
++RUN /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --binhost="${BINHOST}/riscv-usr"
++RUN /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --regen_configs
++
+ RUN /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --binhost="${BINHOST}/arm64-usr"
+ RUN /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --regen_configs
+ RUN /home/sdk/sdk_entry.sh ./build_packages --board="arm64-usr" --only_resolve_circular_deps
+diff --git a/sdk_lib/Dockerfile.sdk-import b/sdk_lib/Dockerfile.sdk-import
+index 835c74919b..e283280bd6 100644
+--- a/sdk_lib/Dockerfile.sdk-import
++++ b/sdk_lib/Dockerfile.sdk-import
+@@ -53,6 +53,6 @@ RUN chmod 755 /home/sdk/sdk_entry.sh
+ 
+ # This should be a NOP; if you see packages being rebuilt
+ #  it's likely that scripts and SDK tarball are out of sync
+-RUN /home/sdk/sdk_entry.sh ./update_chroot --toolchain_boards="amd64-usr arm64-usr"
++RUN /home/sdk/sdk_entry.sh ./update_chroot --toolchain_boards="amd64-usr arm64-usr riscv-usr"
+ 
+ ENTRYPOINT /home/sdk/sdk_entry.sh
+diff --git a/sdk_lib/Dockerfile.sdk-update b/sdk_lib/Dockerfile.sdk-update
+index 409b07c8a4..818c121bcb 100644
+--- a/sdk_lib/Dockerfile.sdk-update
++++ b/sdk_lib/Dockerfile.sdk-update
+@@ -11,8 +11,9 @@ RUN echo 'export FEATURES="-sandbox -usersandbox -ipc-sandbox -network-sandbox -
+         >> /home/sdk/.bashrc
+ 
+ RUN chown sdk:sdk /mnt/host/source
+-RUN /home/sdk/sdk_entry.sh ./update_chroot --toolchain_boards="amd64-usr arm64-usr"
++RUN /home/sdk/sdk_entry.sh ./update_chroot --toolchain_boards="amd64-usr arm64-usr riscv-usr"
+ 
++RUN /home/sdk/sdk_entry.sh ./setup_board --board="riscv-usr" --regen_configs
+ RUN /home/sdk/sdk_entry.sh ./setup_board --board="arm64-usr" --regen_configs
+ RUN /home/sdk/sdk_entry.sh ./setup_board --board="amd64-usr" --regen_configs
+ 
+diff --git a/sdk_lib/sdk_entry.sh b/sdk_lib/sdk_entry.sh
+index 9ebc141771..278c533563 100755
+--- a/sdk_lib/sdk_entry.sh
++++ b/sdk_lib/sdk_entry.sh
+@@ -29,7 +29,7 @@ sed -i -r '/^masters =/s/\bcoreos(\s|$)/coreos-overlay\1/g' /usr/local/portage/c
+     fi
+ 
+     if [ "${version}" != "${DISTRIB_RELEASE}" ] ; then
+-        for target in amd64-usr arm64-usr; do
++        for target in amd64-usr arm64-usr riscv-usr; do
+             if [ ! -d "/build/$target" ] ; then
+                 continue
+             fi
+@@ -57,7 +57,7 @@ sed -i -r '/^masters =/s/\bcoreos(\s|$)/coreos-overlay\1/g' /usr/local/portage/c
+ #    sudo su - sdk -c "<command>".
+ #   Then, we need to preserve whitespaces in arguments of commands
+ #    passed to the container, e.g.
+-#    ./update_chroot --toolchain_boards="amd64-usr arm64-usr".
++#    ./update_chroot --toolchain_boards="amd64-usr arm64-usr riscv-usr".
+ #    This is done via a separate ".cmd" file since we have used up
+ #    our quotes for su -c "<cmd>" already.
+ if [ $# -gt 0 ] ; then
