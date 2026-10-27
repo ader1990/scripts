@@ -1,0 +1,13 @@
+diff --git a/sdk_container/src/third_party/coreos-overlay/dev-util/bsdiff/bsdiff-4.3-r4.ebuild b/sdk_container/src/third_party/coreos-overlay/dev-util/bsdiff/bsdiff-4.3-r4.ebuild
+index 3b66dbd7b0..9922add83e 100644
+--- a/sdk_container/src/third_party/coreos-overlay/dev-util/bsdiff/bsdiff-4.3-r4.ebuild
++++ b/sdk_container/src/third_party/coreos-overlay/dev-util/bsdiff/bsdiff-4.3-r4.ebuild
+@@ -11,7 +11,7 @@ SRC_URI="https://www.daemonology.net/bsdiff/${P}.tar.gz"
+ 
+ LICENSE="BSD-2"
+ SLOT="0"
+-KEYWORDS="~alpha amd64 ~arm arm64 ~hppa ~ia64 ~mips ppc sparc x86 ~amd64-linux ~x86-linux ~ppc-macos"
++KEYWORDS="~alpha amd64 ~arm arm64 ~hppa ~ia64 ~mips ppc sparc x86 ~amd64-linux ~x86-linux ~ppc-macos riscv"
+ 
+ RDEPEND="app-arch/bzip2"
+ DEPEND="${RDEPEND}"
