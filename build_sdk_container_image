@@ -249,7 +249,7 @@ fi
 #  of this step is to remove "white-outs", i.e. files which have been
 #  deleted in the full image but are still present in an intermediate layer.
 #
-for a in all arm64 amd64 riscv64; do
+for a in riscv64; do
     yell "Creating '$a' arch SDK image"
     rmarch=""; rmcross=""
     case $a in

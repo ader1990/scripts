@@ -50,10 +50,15 @@ build_target_toolchain() {
             fi
             files=( "${d}"/* )
             if [[ ${#files[@]} -gt 0 ]]; then
-                f=${d##*/}
-                cp -at "${ROOT}/usr/${f}" "${files[@]}"
+                f_temp=${d##*/}
+                f="${ROOT}/usr/${f}"
+                if [[ ! -d ${f} ]]; then
+                    continue
+                fi
+                cp -at "{f}" "${files[@]}"
             fi
         done
+        mkdir -p "${SYSROOT}"/usr/include
         cp -at "${ROOT}"/usr "${SYSROOT}"/usr/include
     )
 
@@ -63,7 +68,7 @@ build_target_toolchain() {
 
 configure_crossdev_overlay / /usr/local/portage/crossdev
 
-for board in $(get_board_list); do
+for board in riscv-usr; do
     echo "Building native toolchain for ${board}"
     target_pkgdir="$(portageq envvar PKGDIR)/target/${board}"
     PKGDIR="${target_pkgdir}" configure_target_root "${board}"
