@@ -28,7 +28,6 @@ DEPEND="
 	coreos-base/afterburn
 	coreos-base/coreos-init:=
 	net-misc/iputils
-	sys-apps/azure-vm-utils[dracut]
 	sys-apps/baselayout
 	sys-apps/busybox
 	sys-apps/coreutils

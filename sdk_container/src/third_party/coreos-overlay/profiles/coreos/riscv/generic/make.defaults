@@ -1,9 +1,9 @@
-CC="riscv64-cros-linux-gnu-gcc --sysroot=/usr/riscv64-cros-linux-gnu"
-CXX="riscv64-cros-linux-gnu-g++ --sysroot=/usr/riscv64-cros-linux-gnu"
+#CC="riscv64-cros-linux-gnu-gcc --sysroot=/usr/riscv64-cros-linux-gnu"
+#CXX="riscv64-cros-linux-gnu-g++ --sysroot=/usr/riscv64-cros-linux-gnu"
 
-CPPFLAGS="-I/build/riscv-usr/usr/include"
+#CPPFLAGS="-I/build/riscv-usr/usr/include"
 
-CFLAGS="-O2 -pipe -march=rv64gc -mabi=lp64d --sysroot=/usr/riscv64-cros-linux-gnu"
-CXXFLAGS="${CFLAGS}"
+#CFLAGS="-O2 -pipe -march=rv64gc -mabi=lp64d --sysroot=/usr/riscv64-cros-linux-gnu"
+#CXXFLAGS="${CFLAGS}"
 
 LDFLAGS="--sysroot=/usr/riscv64-cros-linux-gnu -L/usr/riscv64-cros-linux-gnu/usr/lib64 -L/usr/riscv64-cros-linux-gnu/lib64 -L/build/riscv-usr/usr/lib64 -Wl,-rpath-link,/build/riscv-usr/usr/lib64"
