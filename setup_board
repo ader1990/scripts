@@ -351,26 +351,22 @@ if [[ ${FLAGS_regen_configs} -eq ${FLAGS_FALSE} ]]; then
 
   info "Installing baselayout"
   "${EMERGE_WRAPPER}" "${EMERGE_FLAGS[@]}" --nodeps sys-apps/baselayout
+  echo "avladu: BEFORE INSTALL ${FLAGS_usepkg} ${FLAGS_getbinpkg} ${FLAGS_TRUE}"
 
-  if [[ "${FLAGS_usepkg}" -ne "${FLAGS_TRUE}" ||
-        "${FLAGS_getbinpkg}" -ne "${FLAGS_TRUE}" ]]
-  then
     # When binary packages are disabled we need to make sure the cross
     # sysroot includes any build dependencies for the toolchain.
     info "Installing toolchain build dependencies"
     install_cross_libs "${BOARD_CHOST}" "${EMERGE_FLAGS[@]}" --buildpkg=n
 
-    info "Building toolchain dependencies"
-    "${EMERGE_WRAPPER}" --buildpkg --buildpkgonly \
+    info "avladu: Building toolchain dependencies"
+    "${EMERGE_WRAPPER}" --buildpkg --with-bdeps=y \
         --root="/usr/${BOARD_CHOST}" --sysroot="/usr/${BOARD_CHOST}" \
-        "${EMERGE_TOOLCHAIN_FLAGS[@]}" $(< "/usr/${BOARD_CHOST}/etc/portage/cross-${BOARD_CHOST}-depends")
-    info "Building toolchain"
-    "${EMERGE_WRAPPER}" --buildpkg --buildpkgonly \
+        "${EMERGE_TOOLCHAIN_FLAGS[@]}" $(< "/usr/${BOARD_CHOST}/etc/portage/cross-${BOARD_CHOST}-depends") || true
+    info "avladu: Building toolchain"
+    "${EMERGE_WRAPPER}" --buildpkg --with-bdeps=y \
         --root="/usr/${BOARD_CHOST}" --sysroot="/usr/${BOARD_CHOST}" \
-	"${EMERGE_TOOLCHAIN_FLAGS[@]}" "${TOOLCHAIN_PKGS[@]}"
-  fi
-
-  info "Installing toolchain"
+	"${EMERGE_TOOLCHAIN_FLAGS[@]}" "${TOOLCHAIN_PKGS[@]}" || true
+  info "avladu: Installing toolchain"
   "${EMERGE_WRAPPER}" \
       --usepkgonly --getbinpkg --rebuilt-binaries n \
       "${EMERGE_TOOLCHAIN_FLAGS[@]}" "${TOOLCHAIN_PKGS[@]}"

@@ -99,14 +99,11 @@ RDEPEND="${RDEPEND}
 	app-arch/unzip
 	app-arch/zip
 	app-arch/ncompress
-	app-crypt/adcli
 	app-crypt/clevis
 	app-crypt/gnupg
 	app-crypt/go-tspi
 	app-crypt/tpmpolicy
 	app-editors/vim
-	app-emulation/qemu-guest-agent
-	app-containers/cri-tools
 	app-misc/ca-certificates
 	app-misc/jq
 	app-misc/pax-utils
@@ -152,7 +149,6 @@ RDEPEND="${RDEPEND}
 	sec-policy/selinux-unconfined
 	sys-apps/acl
 	sys-apps/attr
-	sys-apps/azure-vm-utils
 	sys-apps/coreutils
 	sys-apps/checkpolicy
 	sys-apps/dbus
