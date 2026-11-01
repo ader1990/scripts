@@ -1,7 +1,7 @@
 #CC="riscv64-cros-linux-gnu-gcc --sysroot=/usr/riscv64-cros-linux-gnu"
 #CXX="riscv64-cros-linux-gnu-g++ --sysroot=/usr/riscv64-cros-linux-gnu"
 
-#CPPFLAGS="-I/build/riscv-usr/usr/include"
+CPPFLAGS="-I/build/riscv-usr/usr/include"
 
 #CFLAGS="-O2 -pipe -march=rv64gc -mabi=lp64d --sysroot=/usr/riscv64-cros-linux-gnu"
 #CXXFLAGS="${CFLAGS}"
