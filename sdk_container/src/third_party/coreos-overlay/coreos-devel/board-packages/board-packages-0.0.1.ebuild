@@ -19,6 +19,4 @@ RDEPEND="
 	coreos-base/coreos
 	coreos-base/coreos-dev
 	sys-boot/grub
-	sys-boot/shim
-	sys-boot/shim-signed
 "
