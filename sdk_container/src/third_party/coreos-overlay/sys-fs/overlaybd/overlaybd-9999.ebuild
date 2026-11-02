@@ -61,6 +61,7 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}"/0001-Patch-Photon-after-fetching-to-fix-cross-issues.patch
 	"${FILESDIR}"/0002-photon-no-resize.patch
+	"${FILESDIR}"/0003-riscv.patch
 )
 
 src_prepare() {
