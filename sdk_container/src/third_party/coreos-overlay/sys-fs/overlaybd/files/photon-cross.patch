@@ -153,3 +153,27 @@ RV64 uses the same member-function pointer virtual-bit layout as x86-64.
          {
              return offset & 1;
 
+Reuse the architecture-aware spin-wait helper in the lock-free queue.
+
+--- a/common/lockfree_queue.h
++++ b/common/lockfree_queue.h
+@@ -23,6 +23,6 @@
+ #include <mutex>
+ #include <thread>
+ #include <utility>
+-#ifndef __aarch64__
++#if defined(__x86_64__) || defined(__i386__)
+ #include <immintrin.h>
+ #endif
+@@ -66,9 +66,5 @@
+ struct CPUPause : PauseBase {
+     inline static __attribute__((always_inline)) void pause() {
+-#ifdef __aarch64__
+-        asm volatile("isb" : : : "memory");
+-#else
+-        _mm_pause();
+-#endif
++        photon::spin_wait();
+     }
+ };
+
