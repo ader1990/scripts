@@ -177,3 +177,24 @@ Reuse the architecture-aware spin-wait helper in the lock-free queue.
      }
  };
 
+Use the existing software CRC32C implementation on RISC-V without compiling
+x86 intrinsics. The dispatcher continues to report hardware CRC unavailable.
+
+--- a/common/checksum/crc32c.cpp
++++ b/common/checksum/crc32c.cpp
+@@ -36,3 +36,8 @@
++#if defined(__riscv)
++uint32_t crc32c_hw(const uint8_t *data, size_t nbytes, uint32_t crc) {
++  return crc32c_sw(data, nbytes, crc);
++}
++#else
+ #if (defined(__aarch64__) && defined(__ARM_FEATURE_CRC32))
+ #if (defined(__clang__))
+ #define _crc32di __builtin_arm_crc32cd
+@@ -86,5 +91,6 @@
+   }
+   return sum;
+ }
++#endif
+
+ /* CRC32C routines, these use a different polynomial */
