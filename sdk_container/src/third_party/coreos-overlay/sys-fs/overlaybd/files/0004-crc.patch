@@ -1,0 +1,30 @@
+Use the existing software CRC32C implementation on RISC-V.
+
+The dispatcher already selects software CRC32C on RISC-V, but the hardware
+implementation still compiles x86 intrinsics. Keep the hardware function as
+a software wrapper so the testing entry point also works on RISC-V.
+
+--- a/src/overlaybd/zfile/crc32/crc32c.cpp
++++ b/src/overlaybd/zfile/crc32/crc32c.cpp
+@@ -51,6 +51,13 @@
+ static void crc_init() __attribute__((constructor));
+ static void crc_deinit() __attribute__((destructor));
+ 
++#if defined(__riscv)
++static uint32_t crc32c_sw(const uint8_t *buffer, size_t nbytes, uint32_t crc);
++
++static uint32_t crc32c_hw(const uint8_t *data, size_t nbytes, uint32_t crc) {
++    return crc32c_sw(data, nbytes, crc);
++}
++#else
+ static uint32_t crc32c_hw(const uint8_t *data, size_t nbytes, uint32_t crc) {
+     uint32_t sum = crc;
+     size_t offset = 0;
+@@ -81,5 +88,6 @@
+     }
+     return sum;
+ }
++#endif
+ 
+ /* CRC32C routines, these use a different polynomial */
+
