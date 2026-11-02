@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 source /tmp/chroot-functions.sh
 source /tmp/toolchain_util.sh
 
@@ -50,15 +50,12 @@ build_target_toolchain() {
             fi
             files=( "${d}"/* )
             if [[ ${#files[@]} -gt 0 ]]; then
-                f_temp=${d##*/}
-                f="${ROOT}/usr/${f}"
-                if [[ ! -d ${f} ]]; then
-                    continue
-                fi
-                cp -at "{f}" "${files[@]}"
+                f=${d##*/}
+                mkdir -p "${ROOT}/usr/${f}"
+                cp -at "${ROOT}/usr/${f}" "${files[@]}"
             fi
         done
-        mkdir -p "${SYSROOT}"/usr/include
+        mkdir -p "${ROOT}"/usr
         cp -at "${ROOT}"/usr "${SYSROOT}"/usr/include
     )
 
