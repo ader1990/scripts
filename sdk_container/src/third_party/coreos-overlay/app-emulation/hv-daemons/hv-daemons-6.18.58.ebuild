@@ -6,7 +6,7 @@ EAPI=8
 inherit coreos-kernel systemd
 
 DESCRIPTION="HyperV guest support daemons"
-KEYWORDS="amd64 arm64 riscv"
+KEYWORDS="amd64 arm64"
 
 src_configure() {
 	:

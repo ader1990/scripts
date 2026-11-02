@@ -803,7 +803,7 @@ EOF
 
   # Sign the kernel after /usr is in a consistent state and verity is
   # calculated. Only for unofficial builds as official builds get signed later.
-  if [[ ${COREOS_OFFICIAL:-0} -ne 1 ]]; then
+  if [[ ${COREOS_OFFICIAL:-0} -ne 1 && ${BOARD} != "riscv-usr" ]]; then
     do_sbsign --output "${root_fs_dir}/boot/flatcar/vmlinuz-a"{,}
     cleanup_sbsign_certs
   fi
@@ -845,8 +845,12 @@ EOF
     if [[ -n "${image_grub}" && -n "${image_shim}" ]]; then
       grub_args+=(
         --copy_efi_grub="${BUILD_DIR}/${image_grub}"
-        --copy_shim="${BUILD_DIR}/${image_shim}"
       )
+      if [[ ${BOARD} != "riscv-usr" ]]; then
+        grub_args+=(
+          --copy_shim="${BUILD_DIR}/${image_shim}"
+        )
+      fi
     fi
     for target in ${target_list}; do
       ${BUILD_LIBRARY_DIR}/grub_install.sh \
