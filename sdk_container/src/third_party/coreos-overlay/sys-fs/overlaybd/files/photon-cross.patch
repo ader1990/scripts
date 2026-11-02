@@ -139,3 +139,17 @@ include. Synchronization is provided by the surrounding atomic operations.
  #endif
      }
 
+RV64 uses the same member-function pointer virtual-bit layout as x86-64.
+
+--- a/common/PMF.h
++++ b/common/PMF.h
+@@ -32,7 +32,7 @@
+     {
+         union { uint64_t func_ptr, offset; };
+         uint64_t this_adjustment;
+-#ifdef __x86_64__
++#if defined(__x86_64__) || (defined(__riscv) && __riscv_xlen == 64)
+         bool is_virtual() const
+         {
+             return offset & 1;
+
