@@ -113,3 +113,29 @@ index fe5514e..13d653d 100644
  
 -- 
 2.52.0
+
+Guard x86 intrinsics and provide a baseline RISC-V spin-wait instruction.
+The RISC-V pause instruction requires Zihintpause, which rv64gc does not
+include. Synchronization is provided by the surrounding atomic operations.
+
+--- a/thread/thread.h
++++ b/thread/thread.h
+@@ -21,6 +21,6 @@
+ #include <atomic>
+ #include <type_traits>
+ #include <photon/common/callback.h>
+-#ifndef __aarch64__
++#if defined(__x86_64__) || defined(__i386__)
+ #include <emmintrin.h>
+ #endif
+@@ -166,7 +166,9 @@
+     inline void spin_wait() {
+ #ifdef __aarch64__
+         asm volatile("isb" : : : "memory");
++#elif defined(__riscv)
++        asm volatile("nop" : : : "memory");
+ #else
+         _mm_pause();
+ #endif
+     }
+
