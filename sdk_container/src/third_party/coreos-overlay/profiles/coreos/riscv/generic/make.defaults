@@ -1,6 +1,6 @@
-SYSROOT="/build/riscv-usr"
-CC="riscv64-cros-linux-gnu-gcc --sysroot=${SYSROOT} -B/build/riscv-usr/usr/lib64"
-CXX="riscv64-cros-linux-gnu-g++ --sysroot=${SYSROOT} -B/build/riscv-usr/usr/lib64"
+#SYSROOT="/build/riscv-usr"
+#CC="riscv64-cros-linux-gnu-gcc --sysroot=${SYSROOT} -B/build/riscv-usr/usr/lib64"
+#CXX="riscv64-cros-linux-gnu-g++ --sysroot=${SYSROOT} -B/build/riscv-usr/usr/lib64"
 
 #CPPFLAGS="-I/build/riscv-usr/usr/include"
 
