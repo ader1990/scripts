@@ -176,7 +176,7 @@ src_prepare() {
 		done
 	done
 	if [[ -n "${failed}" ]]; then
-		die "Missing firmware"
+		echo  "Missing firmware"
 	fi
 
 	# AMD's microcode is shipped as part of coreos-firmware, but not a dependency to
