@@ -682,8 +682,8 @@ _write_qemu_uefi_conf() {
             cp "/usr/share/edk2/ArmVirtQemu-AARCH64/QEMU_VARS.qcow2" "$(_dst_dir)/${flash_rw}"
             ;;
         riscv-usr)
-            cp "/usr/share/edk2/RiscVVirtQemu/RISCV_VIRT_CODE.fd" "$(_dst_dir)/${flash_ro}"
-            cp "/usr/share/edk2/RiscVVirtQemu/RISCV_VIRT_VARS.fd" "$(_dst_dir)/${flash_rw}"
+            cp "/usr/share/edk2/RiscVVirtQemu/RISCV_VIRT_CODE.qcow2" "$(_dst_dir)/${flash_ro}"
+            cp "/usr/share/edk2/RiscVVirtQemu/RISCV_VIRT_VARS.qcow2" "$(_dst_dir)/${flash_rw}"
             ;;
     esac
 
