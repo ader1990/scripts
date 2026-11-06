@@ -263,6 +263,8 @@ else
                 VM_NCPUS=2
             fi
             set -- -machine virt -cpu cortex-a57 -smp "${VM_NCPUS}" -nographic "$@" ;;
+        riscv-usr+*)
+            set -- -machine virt,acpi=off -cpu rv64 -smp "${VM_NCPUS}" -nographic -vnc :0 -device virtio-gpu-pci -device qemu-xhci,id=xhci -device usb-kbd,bus=xhci.0 "$@" ;;
         *)
             die "Unsupported arch" ;;
     esac
@@ -336,6 +338,8 @@ case "${VM_BOARD}" in
         QEMU_BIN=qemu-system-x86_64 ;;
     arm64-usr)
         QEMU_BIN=qemu-system-aarch64 ;;
+    riscv-usr)
+        QEMU_BIN=qemu-system-riscv64 ;;
     *) die "Unsupported arch" ;;
 esac
 
