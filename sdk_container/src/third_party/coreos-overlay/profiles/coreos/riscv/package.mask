@@ -95,7 +95,6 @@
 >sys-libs/libcap-ng-0.9.3
 >sys-libs/liburing-2.12
 >sys-libs/libxcrypt-4.4.38-r1
->sys-libs/timezone-data-2026b
 >sys-process/audit-4.1.4-r4
 >virtual/perl-Encode-3.210.0-r2
 >virtual/perl-ExtUtils-MakeMaker-7.760.0
