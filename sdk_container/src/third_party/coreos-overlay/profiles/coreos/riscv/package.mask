@@ -72,7 +72,7 @@
 >sys-apps/shadow-4.20.0
 >sys-apps/systemd-261.2
 >sys-auth/pambase-20251104-r1
->sys-auth/sssd-2.13.1
+#>sys-auth/sssd-2.13.1
 >sys-devel/binutils-2.46.1
 >sys-devel/crossdev-20260501-r1
 >sys-devel/dwz-0.16
