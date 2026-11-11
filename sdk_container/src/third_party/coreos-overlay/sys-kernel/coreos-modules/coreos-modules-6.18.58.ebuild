@@ -31,7 +31,7 @@ src_compile() {
 	setup_keys
 
 	# Build both vmlinux and modules (moddep checks symbols in vmlinux)
-	kmake vmlinux modules
+	kmake vmlinux modules dtbs
 }
 
 src_install() {

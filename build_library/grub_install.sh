@@ -232,6 +232,9 @@ case "${FLAGS_target}" in
         info "Installing default ${FLAGS_target} UEFI bootloader."
         sudo cp "${ESP_DIR}/${GRUB_IMAGE}" \
             "${ESP_DIR}/EFI/boot/boot${EFI_ARCH}.efi"
+        sudo mkdir "${ESP_DIR}/EFI/dtb/sifive/" -p
+	ls $ESP_DIR
+        sudo cp "${ESP_DIR}/hifive-unmatched-a00.dtb"  "${ESP_DIR}/EFI/dtb/sifive/"
         if [[ -n ${FLAGS_copy_efi_grub} ]]; then
             cp --no-preserve=mode "${ESP_DIR}/${GRUB_IMAGE}" \
                 "${FLAGS_copy_efi_grub}"

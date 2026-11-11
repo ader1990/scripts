@@ -139,6 +139,9 @@ src_compile() {
 	find . -print0 | cpio --null --create --verbose --format=newc >> "${S}"/build/bootengine.cpio || die
 	popd || die
 	kmake "$(kernel_target)"
+	if [[ $(tc-arch-kernel) == riscv ]]; then
+		kmake sifive/hifive-unmatched-a00.dtb || die "Failed to build HiFive Unmatched DTB"
+	fi
 
 	# sanity check :)
 	[[ -e build/certs/signing_key.pem ]] && die "created a new key!"
@@ -149,6 +152,12 @@ src_install() {
 	insinto "/usr/boot"
 	newins "$(kernel_path)" "vmlinuz-${KV_FULL}"
 	dosym "vmlinuz-${KV_FULL}" "/usr/boot/vmlinuz"
+	if [[ $(tc-arch-kernel) == riscv ]]; then
+		insinto "/usr/boot/dtbs/${KV_FULL}"
+		doins build/arch/riscv/boot/dts/sifive/hifive-unmatched-a00.dtb
+		dosym "dtbs/${KV_FULL}/hifive-unmatched-a00.dtb" "/usr/boot/dtb"
+		dosym "dtbs/${KV_FULL}/hifive-unmatched-a00.dtb" "/usr/boot/dtb-${KV_FULL}"
+	fi
 
 	insinto "/usr/lib/modules/${KV_FULL}/build"
 	doins build/System.map
@@ -164,3 +173,4 @@ src_install() {
 	insinto "/usr/lib/flatcar"
 	doins build/bootengine.img
 }
+

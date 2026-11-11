@@ -578,6 +578,11 @@ finish_image() {
        "${root_fs_dir}/boot/flatcar/vmlinuz-a"
   sudo rm "${root_fs_dir}/usr/boot/vmlinuz"*
 
+  sudo cp "${root_fs_dir}/usr/boot/dtbs/6.18.58-flatcar/hifive-unmatched-a00.dtb" \
+       "${root_fs_dir}/boot/dtb"
+  sudo cp "${root_fs_dir}/usr/boot/dtbs/6.18.58-flatcar/hifive-unmatched-a00.dtb" \
+       "${root_fs_dir}/boot/"
+
   # Forbid dynamic user ID allocation because we want stable IDs
   local found=""
   # We want to forbid "-", "X:-" (.*:-), "-:X" (-:.*), "/X" (/.*)
